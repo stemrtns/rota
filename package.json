@@ -1,0 +1,12 @@
+{
+  "name": "rota-aluguel-de-carros",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sistema acadêmico de aluguel de carros com JSON Server",
+  "scripts": {
+    "start": "json-server --watch db.json --port 3000 --static ."
+  },
+  "devDependencies": {
+    "json-server": "0.17.4"
+  }
+}

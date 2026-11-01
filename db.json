@@ -1,0 +1,331 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Ana Ribeiro",
+      "email": "ana@rota.com",
+      "password": "rota123",
+      "role": "client"
+    },
+    {
+      "id": 2,
+      "name": "Marcos Lima",
+      "email": "agente@rota.com",
+      "password": "rota123",
+      "role": "agent"
+    },
+    {
+      "id": 3,
+      "name": "Frota Horizonte",
+      "email": "empresa@rota.com",
+      "password": "rota123",
+      "role": "company"
+    },
+    {
+      "id": 4,
+      "name": "Banco Caminhos",
+      "email": "banco@rota.com",
+      "password": "rota123",
+      "role": "bank"
+    }
+  ],
+  "clients": [
+    {
+      "id": 1,
+      "userId": 1,
+      "rg": "MG-18.246.903",
+      "cpf": "123.456.789-09",
+      "address": "Rua das Acácias, 145, Funcionários, Belo Horizonte - MG, 30140-060",
+      "profession": "Arquiteta",
+      "employers": [
+        {
+          "name": "Estúdio Traço Arquitetura",
+          "monthlyIncome": 6800
+        },
+        {
+          "name": "Projetos independentes",
+          "monthlyIncome": 1200
+        }
+      ]
+    }
+  ],
+  "vehicles": [
+    {
+      "id": 1,
+      "matricula": "ROT-0001",
+      "year": 2024,
+      "brand": "Toyota",
+      "model": "Corolla Cross XRE",
+      "plate": "RTA2B41",
+      "dailyRate": 189,
+      "status": "Disponível",
+      "ownerType": "Empresa",
+      "ownerName": "Frota Horizonte"
+    },
+    {
+      "id": 2,
+      "matricula": "ROT-0002",
+      "year": 2023,
+      "brand": "Hyundai",
+      "model": "Creta Platinum",
+      "plate": "RTB4C18",
+      "dailyRate": 159,
+      "status": "Disponível",
+      "ownerType": "Empresa",
+      "ownerName": "Frota Horizonte"
+    },
+    {
+      "id": 3,
+      "matricula": "ROT-0003",
+      "year": 2024,
+      "brand": "Volkswagen",
+      "model": "Polo Highline",
+      "plate": "RTC7D25",
+      "dailyRate": 119,
+      "status": "Disponível",
+      "ownerType": "Banco",
+      "ownerName": "Banco Caminhos"
+    },
+    {
+      "id": 4,
+      "matricula": "ROT-0004",
+      "year": 2023,
+      "brand": "Jeep",
+      "model": "Renegade Longitude",
+      "plate": "RTD1E09",
+      "dailyRate": 169,
+      "status": "Disponível",
+      "ownerType": "Cliente",
+      "ownerName": "Ana Ribeiro"
+    },
+    {
+      "id": 5,
+      "matricula": "ROT-0005",
+      "year": 2022,
+      "brand": "Chevrolet",
+      "model": "Onix Premier",
+      "plate": "RTE6F32",
+      "dailyRate": 109,
+      "status": "Indisponível",
+      "ownerType": "Empresa",
+      "ownerName": "Frota Horizonte"
+    },
+    {
+      "id": 6,
+      "matricula": "ROT-0006",
+      "year": 2025,
+      "brand": "Fiat",
+      "model": "Argo Trekking 1.3 CVT",
+      "plate": "RTF3G56",
+      "dailyRate": 125,
+      "status": "Disponível",
+      "ownerType": "Empresa",
+      "ownerName": "Frota Horizonte"
+    },
+    {
+      "id": 7,
+      "matricula": "ROT-0007",
+      "year": 2025,
+      "brand": "Hyundai",
+      "model": "HB20 Platinum Plus 1.0 TGDI",
+      "plate": "RTG8H21",
+      "dailyRate": 139,
+      "status": "Disponível",
+      "ownerType": "Empresa",
+      "ownerName": "Frota Horizonte"
+    },
+    {
+      "id": 8,
+      "matricula": "ROT-0008",
+      "year": 2025,
+      "brand": "Volkswagen",
+      "model": "T-Cross Highline 250 TSI",
+      "plate": "RTH5J74",
+      "dailyRate": 229,
+      "status": "Disponível",
+      "ownerType": "Banco",
+      "ownerName": "Banco Caminhos"
+    },
+    {
+      "id": 9,
+      "matricula": "ROT-0009",
+      "year": 2025,
+      "brand": "Chevrolet",
+      "model": "Tracker Premier 1.2 Turbo",
+      "plate": "RTJ9K63",
+      "dailyRate": 199,
+      "status": "Disponível",
+      "ownerType": "Empresa",
+      "ownerName": "Frota Horizonte"
+    },
+    {
+      "id": 10,
+      "matricula": "ROT-0010",
+      "year": 2025,
+      "brand": "Jeep",
+      "model": "Compass Longitude T270",
+      "plate": "RTK4L18",
+      "dailyRate": 289,
+      "status": "Disponível",
+      "ownerType": "Empresa",
+      "ownerName": "Frota Horizonte"
+    },
+    {
+      "id": 11,
+      "matricula": "ROT-0011",
+      "year": 2025,
+      "brand": "Toyota",
+      "model": "Corolla Altis Premium Hybrid",
+      "plate": "RTL7M42",
+      "dailyRate": 319,
+      "status": "Disponível",
+      "ownerType": "Banco",
+      "ownerName": "Banco Caminhos"
+    },
+    {
+      "id": 12,
+      "matricula": "ROT-0012",
+      "year": 2025,
+      "brand": "Fiat",
+      "model": "Fastback Impetus Hybrid",
+      "plate": "RTM2N85",
+      "dailyRate": 239,
+      "status": "Disponível",
+      "ownerType": "Empresa",
+      "ownerName": "Frota Horizonte"
+    },
+    {
+      "id": 13,
+      "matricula": "ROT-0013",
+      "year": 2025,
+      "brand": "Volkswagen",
+      "model": "Nivus Highline 200 TSI",
+      "plate": "RTN6P39",
+      "dailyRate": 189,
+      "status": "Disponível",
+      "ownerType": "Empresa",
+      "ownerName": "Frota Horizonte"
+    },
+    {
+      "id": 14,
+      "matricula": "ROT-0014",
+      "year": 2024,
+      "brand": "Nissan",
+      "model": "Kicks Exclusive 1.6 CVT",
+      "plate": "RTP1Q57",
+      "dailyRate": 179,
+      "status": "Disponível",
+      "ownerType": "Empresa",
+      "ownerName": "Frota Horizonte"
+    },
+    {
+      "id": 15,
+      "matricula": "ROT-0015",
+      "year": 2025,
+      "brand": "Honda",
+      "model": "City Touring 1.5 CVT",
+      "plate": "RTQ8R24",
+      "dailyRate": 179,
+      "status": "Disponível",
+      "ownerType": "Banco",
+      "ownerName": "Banco Caminhos"
+    },
+    {
+      "id": 16,
+      "matricula": "ROT-0016",
+      "year": 2025,
+      "brand": "Volkswagen",
+      "model": "Virtus Highline 250 TSI",
+      "plate": "RTR3S68",
+      "dailyRate": 179,
+      "status": "Disponível",
+      "ownerType": "Empresa",
+      "ownerName": "Frota Horizonte"
+    },
+    {
+      "id": 17,
+      "matricula": "ROT-0017",
+      "year": 2025,
+      "brand": "Fiat",
+      "model": "Strada Volcano CD 1.3",
+      "plate": "RTS5T91",
+      "dailyRate": 189,
+      "status": "Disponível",
+      "ownerType": "Empresa",
+      "ownerName": "Frota Horizonte"
+    },
+    {
+      "id": 18,
+      "matricula": "ROT-0018",
+      "year": 2025,
+      "brand": "Fiat",
+      "model": "Toro Freedom T270",
+      "plate": "RTT9U36",
+      "dailyRate": 249,
+      "status": "Disponível",
+      "ownerType": "Empresa",
+      "ownerName": "Frota Horizonte"
+    },
+    {
+      "id": 19,
+      "matricula": "ROT-0019",
+      "year": 2025,
+      "brand": "Chevrolet",
+      "model": "Spin Premier 7 lugares",
+      "plate": "RTU4V72",
+      "dailyRate": 199,
+      "status": "Disponível",
+      "ownerType": "Banco",
+      "ownerName": "Banco Caminhos"
+    },
+    {
+      "id": 20,
+      "matricula": "ROT-0020",
+      "year": 2025,
+      "brand": "Renault",
+      "model": "Kardian Première Edition 1.0 Turbo",
+      "plate": "RTV7W15",
+      "dailyRate": 169,
+      "status": "Disponível",
+      "ownerType": "Empresa",
+      "ownerName": "Frota Horizonte"
+    }
+  ],
+  "requests": [
+    {
+      "id": 1,
+      "clientId": 1,
+      "userId": 1,
+      "clientName": "Ana Ribeiro",
+      "vehicleId": 2,
+      "vehicleName": "Hyundai Creta Platinum",
+      "startDate": "2026-12-10",
+      "endDate": "2026-12-14",
+      "days": 5,
+      "totalValue": 795,
+      "monthlyIncome": 8000,
+      "notes": "Retirada no período da manhã, por favor.",
+      "status": "Em análise",
+      "createdAt": "2026-10-28T13:20:00.000Z",
+      "analysisNote": ""
+    },
+    {
+      "id": 2,
+      "clientId": 1,
+      "userId": 1,
+      "clientName": "Ana Ribeiro",
+      "vehicleId": 3,
+      "vehicleName": "Volkswagen Polo Highline",
+      "startDate": "2026-09-10",
+      "endDate": "2026-09-12",
+      "days": 3,
+      "totalValue": 357,
+      "monthlyIncome": 8000,
+      "notes": "",
+      "status": "Aprovado",
+      "createdAt": "2026-08-20T13:20:00.000Z",
+      "reviewedBy": "Marcos Lima",
+      "analysisNote": "Renda compatível com o valor solicitado."
+    }
+  ]
+}
