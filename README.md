@@ -57,6 +57,7 @@ O banco inicial inclui seis cadastros de clientes e dez pedidos ilustrativos. Os
 - Solicitação, consulta, edição e cancelamento de pedidos em cartões visuais, com painel detalhado do contrato.
 - Solicitação em cinco etapas: veículo, datas e locais, contrato/propriedade, crédito bancário opcional e revisão.
 - Análise financeira de pedidos por agentes, empresas e bancos, com renda e até três fontes empregadoras visíveis e ações para aprovar ou rejeitar.
+- Agentes devem informar o motivo ao rejeitar um pedido; o parecer fica visível ao cliente no acompanhamento e nos detalhes.
 - Painel de análise com todos os pedidos recebidos, separados por status, e ações de aprovação/rejeição apenas para pedidos em análise.
 - Cadastro, edição e remoção de veículos com município de operação, matrícula, ano, marca, modelo, placa, categoria, câmbio, combustível, proprietário e upload/substituição de foto.
 - Bloqueio de pedidos para veículos indisponíveis ou com reservas ativas nas mesmas datas.

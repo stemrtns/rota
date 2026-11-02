@@ -17,6 +17,8 @@ const state = {
   pendingView: null,
   pendingVehicleId: null,
   selectedRequestId: null,
+  rejectingRequestId: null,
+  rejectionDraft: "",
   galleryVehicleId: null,
   galleryPhotoIndex: 0,
   pendingVehiclePhotoDataUrl: null,
@@ -304,7 +306,7 @@ async function loadSharedLayout() {
   const slots = [...document.querySelectorAll("[data-layout]")];
   await Promise.all(slots.map(async (slot) => {
     const name = slot.dataset.layout;
-    const response = await fetch(`partials/${name}.html?v=1.8.14`);
+    const response = await fetch(`partials/${name}.html?v=1.8.17`);
     if (!response.ok) {
       throw new Error(`Não foi possível carregar o componente compartilhado "${name}" (${response.status}).`);
     }
@@ -352,6 +354,8 @@ function renderShell() {
     footerClientLink.href = isStaff() ? pageFiles.clientes : pageFiles.cadastro;
     footerClientLink.textContent = isStaff() ? "Cadastro de clientes" : authenticated ? "Meu cadastro" : "Cadastro do cliente";
   }
+  const footerOrdersLink = document.getElementById("footer-orders-link");
+  if (footerOrdersLink && isStaff()) footerOrdersLink.href = pageFiles.analise;
   document.querySelectorAll(".nav-link").forEach((item) => {
     item.classList.toggle("active", item.dataset.nav === state.currentPage);
   });
@@ -380,6 +384,8 @@ function routeTo(view) {
     }
     if (view === "solicitar" && !isProfileComplete(currentClient())) {
       toast("Complete seu cadastro antes de solicitar um aluguel.", true);
+      state.pendingView = "solicitar";
+      sessionStorage.setItem("rota-pending-view", "solicitar");
       view = "cadastro";
     }
   }
@@ -1040,7 +1046,9 @@ function renderAnalysis() {
       <div class="analysis-client-actions"><button class="button button-outline button-small" type="button" data-view-client="${escapeHtml(order.id)}">Ver cadastro completo <span aria-hidden="true">→</span></button></div>
       <p class="analysis-note"><strong>Contrato:</strong> ${escapeHtml(order.contractType || "Não informado")} · <strong>Propriedade:</strong> ${escapeHtml(order.propertyOption || "Não informada")}<br /><strong>Retirada:</strong> ${escapeHtml(order.pickupLocation || "Local não informado")} · <strong>Devolução:</strong> ${escapeHtml(order.returnLocation || "Local não informado")}${order.creditRequested ? `<br /><strong>Crédito bancário solicitado:</strong> ${escapeHtml(order.creditBankName || "Banco")} · ${formatCurrency(order.creditAmount)}` : ""}${order.notes ? `<br /><strong>Observação:</strong> ${escapeHtml(order.notes)}` : ""}</p>
       ${order.status === "Em análise"
-        ? `<div class="analysis-actions"><button class="button button-danger" type="button" data-review-order="${escapeHtml(order.id)}" data-review-status="Rejeitado">Rejeitar pedido</button><button class="button button-primary" type="button" data-review-order="${escapeHtml(order.id)}" data-review-status="Aprovado">Aprovar contrato</button></div>`
+        ? state.rejectingRequestId === String(order.id)
+          ? `<div class="analysis-rejection-form" data-rejection-form="${escapeHtml(order.id)}"><label class="form-field"><span>Motivo da rejeição <b>*</b></span><textarea name="rejection-reason" data-rejection-reason required maxlength="500" rows="3" placeholder="Explique ao cliente por que o pedido não foi aprovado.">${escapeHtml(state.rejectionDraft)}</textarea></label><div class="analysis-actions"><button class="button button-outline" type="button" data-cancel-rejection>Cancelar</button><button class="button button-danger" type="button" data-submit-rejection>Confirmar rejeição</button></div></div>`
+          : `<div class="analysis-actions"><button class="button button-danger" type="button" data-start-rejection="${escapeHtml(order.id)}">Rejeitar pedido</button><button class="button button-primary" type="button" data-review-order="${escapeHtml(order.id)}" data-review-status="Aprovado">Aprovar contrato</button></div>`
         : `<p class="analysis-note"><strong>Parecer:</strong> ${escapeHtml(order.analysisNote || `Pedido ${String(order.status).toLocaleLowerCase("pt-BR")}.`)}${order.reviewedBy ? ` · Avaliado por ${escapeHtml(order.reviewedBy)}` : ""}</p>`}
     </article>`;
   }).join("") : `<div class="empty-state"><strong>Nenhum pedido recebido</strong>Os pedidos enviados pelos clientes aparecerão aqui.</div>`;
@@ -1441,7 +1449,11 @@ async function handleProfileSubmit(event) {
     await loadData();
     document.getElementById("profile-message").textContent = "Cadastro salvo com sucesso.";
     toast("Seus dados foram atualizados.");
-    if (state.pendingView === "solicitar" || !state.pendingView) {
+    if (state.pendingView === "solicitar" || sessionStorage.getItem("rota-pending-view") === "solicitar") {
+      state.pendingView = null;
+      sessionStorage.removeItem("rota-pending-view");
+      routeTo("solicitar");
+    } else if (state.pendingView) {
       state.pendingView = null;
     }
   } catch (error) {
@@ -1554,13 +1566,18 @@ async function cancelRequest(id) {
   }
 }
 
-async function reviewRequest(id, status) {
+async function reviewRequest(id, status, rejectionReason = "") {
   if (!isStaff() || !["Aprovado", "Rejeitado"].includes(status)) return;
   const order = state.requests.find((item) => Number(item.id) === Number(id));
   if (!order || order.status !== "Em análise") return;
+  const reason = rejectionReason.trim();
+  if (status === "Rejeitado" && !reason) {
+    toast("Informe o motivo da rejeição para continuar.", true);
+    return;
+  }
   const analysisNote = status === "Aprovado"
     ? "Renda e valor do pedido avaliados. Contrato aprovado."
-    : "Pedido não aprovado pela análise financeira.";
+    : reason;
   try {
     await api.patch(`/requests/${id}`, {
       status,
@@ -1568,6 +1585,8 @@ async function reviewRequest(id, status) {
       reviewedAt: new Date().toISOString(),
       analysisNote,
     });
+    state.rejectingRequestId = null;
+    state.rejectionDraft = "";
     await loadData();
     toast(`Pedido ${status.toLocaleLowerCase("pt-BR")}.`);
   } catch (error) {
@@ -1771,6 +1790,27 @@ document.addEventListener("click", async (event) => {
       renderVehicleGallery();
     } else if (target.matches("[data-edit-order]")) startEditingRequest(target.dataset.editOrder);
     else if (target.matches("[data-cancel-order]")) await cancelRequest(target.dataset.cancelOrder);
+    else if (target.matches("[data-start-rejection]")) {
+      state.rejectingRequestId = String(target.dataset.startRejection);
+      state.rejectionDraft = "";
+      renderAnalysis();
+      document.querySelector("[data-rejection-reason]")?.focus();
+    } else if (target.matches("[data-cancel-rejection]")) {
+      state.rejectingRequestId = null;
+      state.rejectionDraft = "";
+      renderAnalysis();
+    } else if (target.matches("[data-submit-rejection]")) {
+      const form = target.closest("[data-rejection-form]");
+      const reasonInput = form.querySelector("[data-rejection-reason]");
+      const reason = reasonInput.value.trim();
+      if (!reason) {
+        reasonInput.setCustomValidity("Informe o motivo da rejeição.");
+        reasonInput.reportValidity();
+        return;
+      }
+      reasonInput.setCustomValidity("");
+      await reviewRequest(form.dataset.rejectionForm, "Rejeitado", reason);
+    }
     else if (target.matches("[data-review-order]")) await reviewRequest(target.dataset.reviewOrder, target.dataset.reviewStatus);
     else if (target.matches("[data-view-client]")) showClientDetails(target.dataset.viewClient);
     else if (target.matches("[data-view-client-record]")) showClientRecord(target.dataset.viewClientRecord);
@@ -1795,6 +1835,13 @@ document.addEventListener("click", async (event) => {
     }
   } catch (error) {
     reportError(error);
+  }
+});
+
+document.addEventListener("input", (event) => {
+  if (event.target.matches("[data-rejection-reason]")) {
+    state.rejectionDraft = event.target.value;
+    event.target.setCustomValidity("");
   }
 });
 
