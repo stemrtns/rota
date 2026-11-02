@@ -1,0 +1,76 @@
+<div class="modal-backdrop" id="auth-modal" aria-hidden="true">
+      <section class="dialog-card auth-dialog" role="dialog" aria-modal="true" aria-labelledby="auth-title">
+        <button class="dialog-close" type="button" data-close-modal aria-label="Fechar">×</button>
+        <span class="dialog-mark">↗</span>
+        <span class="eyebrow" id="auth-eyebrow">BEM-VINDO À ROTA</span>
+        <h2 id="auth-title">Entre na sua conta</h2>
+        <p id="auth-description">Acesse seus pedidos e continue de onde parou.</p>
+        <form id="auth-form">
+          <label class="form-field register-only" hidden><span>Nome completo</span><input id="auth-name" autocomplete="name" /></label>
+          <label class="form-field"><span>E-mail</span><input id="auth-email" type="email" autocomplete="email" required /></label>
+          <label class="form-field"><span>Senha</span><input id="auth-password" type="password" autocomplete="current-password" required /></label>
+          <p class="form-message" id="auth-message" aria-live="polite"></p>
+          <button class="button button-primary button-full" id="auth-submit" type="submit">Entrar na minha conta <span aria-hidden="true">→</span></button>
+        </form>
+        <p class="auth-switch"><span id="auth-switch-copy">Ainda não tem uma conta?</span> <button type="button" id="auth-switch">Criar conta</button></p>
+        <div class="demo-access"><strong>Acesso de demonstração</strong><span>Cliente: ana@rota.com · rota123</span><span>Agente: agente@rota.com · rota123</span></div>
+      </section>
+    </div>
+
+    <div class="modal-backdrop" id="vehicle-modal" aria-hidden="true">
+      <section class="dialog-card vehicle-dialog" role="dialog" aria-modal="true" aria-labelledby="vehicle-modal-title">
+        <button class="dialog-close" type="button" data-close-modal aria-label="Fechar">×</button>
+        <span class="eyebrow">GESTÃO DA FROTA</span><h2 id="vehicle-modal-title">Cadastrar veículo</h2><p>Os dados serão exibidos no catálogo público.</p>
+        <form id="vehicle-form">
+          <div class="form-grid">
+            <label class="form-field"><span>Marca <b>*</b></span><input id="vehicle-brand" list="vehicle-brand-options" required /><datalist id="vehicle-brand-options"></datalist></label>
+            <label class="form-field"><span>Modelo <b>*</b></span><input id="vehicle-model" list="vehicle-model-options" required /><datalist id="vehicle-model-options"></datalist></label>
+            <label class="form-field"><span>Ano <b>*</b></span><input id="vehicle-year" type="number" min="1990" max="2035" required /></label>
+            <label class="form-field"><span>Matrícula <b>*</b></span><input id="vehicle-registration" required /></label>
+            <label class="form-field"><span>Placa <b>*</b></span><input id="vehicle-plate" required /></label>
+            <label class="form-field"><span>Estado de operação <b>*</b></span><select id="vehicle-state" required></select></label>
+            <label class="form-field"><span>Município de operação <b>*</b></span><select id="vehicle-city" required></select></label>
+            <label class="form-field"><span>Categoria <b>*</b></span><select id="vehicle-category" required><option value="Sedã">Sedã</option><option value="Hatch">Hatch</option><option value="SUV">SUV</option><option value="Picape">Picape</option><option value="Minivan">Minivan</option><option value="Compacto">Compacto</option></select></label>
+            <label class="form-field"><span>Câmbio <b>*</b></span><select id="vehicle-transmission" required><option value="Automático">Automático</option><option value="Manual">Manual</option></select></label>
+            <label class="form-field"><span>Combustível <b>*</b></span><select id="vehicle-fuel" required><option value="Flex">Flex</option><option value="Gasolina">Gasolina</option><option value="Diesel">Diesel</option><option value="Híbrido flex">Híbrido flex</option><option value="Elétrico">Elétrico</option></select></label>
+            <label class="form-field"><span>Diária (R$) <b>*</b></span><input id="vehicle-rate" type="number" min="1" step="0.01" required /></label>
+            <label class="form-field"><span>Disponibilidade</span><select id="vehicle-status"><option value="Disponível">Disponível</option><option value="Indisponível">Indisponível</option></select></label>
+            <label class="form-field"><span>Proprietário <b>*</b></span><select id="vehicle-owner-type"><option value="Empresa">Empresa</option><option value="Banco">Banco</option><option value="Cliente">Cliente</option></select></label>
+            <label class="form-field"><span>Nome do proprietário <b>*</b></span><input id="vehicle-owner-name" required /></label>
+            <label class="form-field form-field-wide vehicle-photo-field">
+              <span>Foto do veículo</span>
+              <input id="vehicle-photo-upload" type="file" accept="image/jpeg,image/png,image/webp" />
+              <small>JPG, PNG ou WebP de até 12 MB. A imagem será otimizada para o catálogo. Ao editar, selecione outra para substituí-la.</small>
+              <span class="vehicle-photo-preview-label" id="vehicle-photo-preview-label" hidden>Pré-visualização da foto</span>
+              <img class="vehicle-photo-preview" id="vehicle-photo-preview" alt="Pré-visualização da foto do veículo" hidden />
+            </label>
+          </div>
+          <p class="form-hint" id="vehicle-catalog-status" aria-live="polite">Digite uma marca para ver sugestões de modelos.</p>
+          <p class="form-message" id="vehicle-message" aria-live="polite"></p>
+          <div class="dialog-actions"><button class="button button-outline" type="button" data-close-modal>Cancelar</button><button class="button button-primary" type="submit">Salvar veículo</button></div>
+        </form>
+      </section>
+    </div>
+
+    <div class="modal-backdrop gallery-backdrop" id="gallery-modal" aria-hidden="true">
+      <section class="dialog-card gallery-dialog" role="dialog" aria-modal="true" aria-labelledby="gallery-title">
+        <button class="dialog-close" type="button" data-close-modal aria-label="Fechar galeria">×</button>
+        <span class="eyebrow">FOTO DO VEÍCULO</span>
+        <h2 id="gallery-title">Foto do veículo</h2>
+        <div class="gallery-photo-stage">
+          <button class="gallery-step" type="button" data-gallery-step="-1" aria-label="Foto anterior">‹</button>
+          <img id="gallery-photo" src="" alt="" hidden />
+          <div class="vehicle-photo-placeholder gallery-photo-placeholder" id="gallery-placeholder" role="status" hidden><span aria-hidden="true">▰</span><strong>Foto não disponível</strong></div>
+          <button class="gallery-step" type="button" data-gallery-step="1" aria-label="Próxima foto">›</button>
+        </div>
+        <div class="gallery-caption-row">
+          <span id="gallery-caption"></span>
+          <span class="gallery-links">
+            <a id="gallery-source-link" target="_blank" rel="noopener noreferrer" hidden>Fonte e licença</a>
+          </span>
+        </div>
+        <div class="gallery-thumbnails" id="gallery-thumbnails" aria-label="Miniaturas das fotos" hidden></div>
+      </section>
+    </div>
+
+    <div class="toast-region" id="toast-region" aria-live="polite" aria-atomic="true"></div>

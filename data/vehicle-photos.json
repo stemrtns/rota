@@ -1,0 +1,188 @@
+{
+  "source": "Wikimedia Commons",
+  "photos": [
+    {
+      "vehicleId": 1,
+      "path": "images/vehicles/vehicle-1.jpg",
+      "file": "2022 Toyota Corolla Cross L FWD, Front Left, 11-21-2021.jpg",
+      "author": "Elise240SX",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:2022_Toyota_Corolla_Cross_L_FWD,_Front_Left,_11-21-2021.jpg"
+    },
+    {
+      "vehicleId": 2,
+      "path": "images/vehicles/vehicle-2.jpg",
+      "file": "2021 Hyundai Creta 2.0 Ultimate (Brazil) front view.png",
+      "author": "Garagem do Jabulas",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:2021_Hyundai_Creta_2.0_Ultimate_(Brazil)_front_view.png"
+    },
+    {
+      "vehicleId": 3,
+      "path": "images/vehicles/vehicle-3.jpg",
+      "file": "2024 Volkswagen Polo 1.6 MSi Highline AT (Brazil).jpg",
+      "author": "Just a Man",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:2024_Volkswagen_Polo_1.6_MSi_Highline_AT_(Brazil).jpg"
+    },
+    {
+      "vehicleId": 4,
+      "path": "images/vehicles/vehicle-4.jpg",
+      "file": "Brazilian Jeep Renegade.jpg",
+      "author": "JasonVogel",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Brazilian_Jeep_Renegade.jpg"
+    },
+    {
+      "vehicleId": 5,
+      "path": "images/vehicles/vehicle-5.jpg",
+      "file": "Chevrolet Onix RS, EVA-01.jpg",
+      "author": "Rjcastillo",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Chevrolet_Onix_RS,_EVA-01.jpg"
+    },
+    {
+      "vehicleId": 6,
+      "path": "images/vehicles/vehicle-6.jpg",
+      "file": "2023 Fiat Argo 1.3 Drive (facelift, Brazil).jpg",
+      "author": "Maxi-Napo-99",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:2023_Fiat_Argo_1.3_Drive_(facelift,_Brazil).jpg"
+    },
+    {
+      "vehicleId": 7,
+      "path": "images/vehicles/vehicle-7.jpg",
+      "file": "2023 Hyundai HB20 1.0 T-GDi Platinum Plus (Brazil) front view.png",
+      "author": "Autosdeprimera",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:2023_Hyundai_HB20_1.0_T-GDi_Platinum_Plus_(Brazil)_front_view.png"
+    },
+    {
+      "vehicleId": 8,
+      "path": "images/vehicles/vehicle-8.jpg",
+      "file": "Volkswagen T-Cross (2023) 1X7A1967.jpg",
+      "author": "Alexander-93",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Volkswagen_T-Cross_(2023)_1X7A1967.jpg"
+    },
+    {
+      "vehicleId": 9,
+      "path": "images/vehicles/vehicle-9.jpg",
+      "file": "Chevrolet Tracker 2021 (front).png",
+      "author": "Autosdeprimera",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Chevrolet_Tracker_2021_(front).png"
+    },
+    {
+      "vehicleId": 10,
+      "path": "images/vehicles/vehicle-10.jpg",
+      "file": "Jeep Compass (MP) PHEV Facelift 1X7A0140.jpg",
+      "author": "Alexander Migl",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jeep_Compass_(MP)_PHEV_Facelift_1X7A0140.jpg"
+    },
+    {
+      "vehicleId": 11,
+      "path": "images/vehicles/vehicle-11.jpg",
+      "file": "Toyota Corolla Limousine Hybrid Genf 2019 1Y7A5576.jpg",
+      "author": "Alexander Migl",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Toyota_Corolla_Limousine_Hybrid_Genf_2019_1Y7A5576.jpg"
+    },
+    {
+      "vehicleId": 12,
+      "path": "images/vehicles/vehicle-12.jpg",
+      "file": "2023 Fiat Fastback (Colombia) front view.png",
+      "author": "Autosdeprimera",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:2023_Fiat_Fastback_(Colombia)_front_view.png"
+    },
+    {
+      "vehicleId": 13,
+      "path": "images/vehicles/vehicle-13.jpg",
+      "file": "2022 Volkswagen Nivus Highline 200 TSi (front).jpg",
+      "author": "Just a Man",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:2022_Volkswagen_Nivus_Highline_200_TSi_(front).jpg"
+    },
+    {
+      "vehicleId": 14,
+      "path": null,
+      "file": null,
+      "author": null,
+      "license": null,
+      "licenseUrl": null,
+      "sourceUrl": null,
+      "note": "Nenhuma foto livre encontrada para a geração do Nissan Kicks 2024 cadastrada."
+    },
+    {
+      "vehicleId": 15,
+      "path": "images/vehicles/vehicle-15.jpg",
+      "flipHorizontal": true,
+      "file": "0 Honda City (7th generation) sedan.jpg",
+      "author": "Benespit",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:0_Honda_City_(7th_generation)_sedan.jpg"
+    },
+    {
+      "vehicleId": 16,
+      "path": "images/vehicles/vehicle-16.jpg",
+      "file": "VW Virtus MSI (Brazil, front view).png",
+      "author": "Darcius Oliveira",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:VW_Virtus_MSI_(Brazil,_front_view).png"
+    },
+    {
+      "vehicleId": 17,
+      "path": "images/vehicles/vehicle-17.jpg",
+      "file": "Fiat Strada 2020 Volcano in Montevideo (front).jpg",
+      "author": "NaBUru38",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Fiat_Strada_2020_Volcano_in_Montevideo_(front).jpg"
+    },
+    {
+      "vehicleId": 18,
+      "path": "images/vehicles/vehicle-18.jpg",
+      "flipHorizontal": true,
+      "file": "Fiat Toro 2018 in Punta del Este (front) 01.jpg",
+      "author": "NaBUru38",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Fiat_Toro_2018_in_Punta_del_Este_(front)_01.jpg"
+    },
+    {
+      "vehicleId": 19,
+      "path": "images/vehicles/vehicle-19.jpg",
+      "file": "2025 Chevrolet Spin 1.8 LT.jpg",
+      "author": "Just a Man",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:2025_Chevrolet_Spin_1.8_LT.jpg"
+    },
+    {
+      "vehicleId": 20,
+      "path": "images/vehicles/vehicle-20.jpg",
+      "file": "Renault Kardian (front).png",
+      "author": "Autosdeprimera",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Renault_Kardian_(front).png"
+    }
+  ]
+}

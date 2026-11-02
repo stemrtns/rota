@@ -27,6 +27,41 @@
       "email": "banco@rota.com",
       "password": "rota123",
       "role": "bank"
+    },
+    {
+      "id": 5,
+      "name": "Bruno Martins",
+      "email": "bruno@rota.com",
+      "password": "rota123",
+      "role": "client"
+    },
+    {
+      "id": 6,
+      "name": "Carolina Souza",
+      "email": "carolina@rota.com",
+      "password": "rota123",
+      "role": "client"
+    },
+    {
+      "id": 7,
+      "name": "Diego Ferreira",
+      "email": "diego@rota.com",
+      "password": "rota123",
+      "role": "client"
+    },
+    {
+      "id": 8,
+      "name": "Eduarda Alves",
+      "email": "eduarda@rota.com",
+      "password": "rota123",
+      "role": "client"
+    },
+    {
+      "id": 9,
+      "name": "Felipe Costa",
+      "email": "felipe@rota.com",
+      "password": "rota123",
+      "role": "client"
     }
   ],
   "clients": [
@@ -46,7 +81,105 @@
           "name": "Projetos independentes",
           "monthlyIncome": 1200
         }
-      ]
+      ],
+      "cityIbge": 3106200,
+      "city": "Belo Horizonte",
+      "state": "MG",
+      "stateName": "Minas Gerais"
+    },
+    {
+      "id": 2,
+      "userId": 5,
+      "rg": "MG-DEMO-0002",
+      "cpf": "000.000.000-02",
+      "address": "Rua das Palmeiras, 210, Centro, Belo Horizonte - MG",
+      "profession": "Analista de sistemas",
+      "employers": [
+        {
+          "name": "Tecnologia Horizonte",
+          "monthlyIncome": 6200
+        }
+      ],
+      "cityIbge": 3106200,
+      "city": "Belo Horizonte",
+      "state": "MG",
+      "stateName": "Minas Gerais"
+    },
+    {
+      "id": 3,
+      "userId": 6,
+      "rg": "MG-DEMO-0003",
+      "cpf": "000.000.000-03",
+      "address": "Avenida Central, 85, Eldorado, Contagem - MG",
+      "profession": "Professora",
+      "employers": [
+        {
+          "name": "Escola Caminhos",
+          "monthlyIncome": 4800
+        },
+        {
+          "name": "Aulas particulares",
+          "monthlyIncome": 900
+        }
+      ],
+      "cityIbge": 3118601,
+      "city": "Contagem",
+      "state": "MG",
+      "stateName": "Minas Gerais"
+    },
+    {
+      "id": 4,
+      "userId": 7,
+      "rg": "MG-DEMO-0004",
+      "cpf": "000.000.000-04",
+      "address": "Rua Ipê Amarelo, 34, Centro, Betim - MG",
+      "profession": "Técnico em logística",
+      "employers": [
+        {
+          "name": "Logística Minas",
+          "monthlyIncome": 3900
+        }
+      ],
+      "cityIbge": 3106705,
+      "city": "Betim",
+      "state": "MG",
+      "stateName": "Minas Gerais"
+    },
+    {
+      "id": 5,
+      "userId": 8,
+      "rg": "MG-DEMO-0005",
+      "cpf": "000.000.000-05",
+      "address": "Rua do Horizonte, 120, Centro, Nova Lima - MG",
+      "profession": "Enfermeira",
+      "employers": [
+        {
+          "name": "Clínica Boa Vida",
+          "monthlyIncome": 5700
+        }
+      ],
+      "cityIbge": 3144805,
+      "city": "Nova Lima",
+      "state": "MG",
+      "stateName": "Minas Gerais"
+    },
+    {
+      "id": 6,
+      "userId": 9,
+      "rg": "MG-DEMO-0006",
+      "cpf": "000.000.000-06",
+      "address": "Avenida Acadêmica, 55, Centro, Lagoa Santa - MG",
+      "profession": "Designer gráfico",
+      "employers": [
+        {
+          "name": "Estúdio Linha Clara",
+          "monthlyIncome": 5200
+        }
+      ],
+      "cityIbge": 3137601,
+      "city": "Lagoa Santa",
+      "state": "MG",
+      "stateName": "Minas Gerais"
     }
   ],
   "vehicles": [
@@ -56,11 +189,18 @@
       "year": 2024,
       "brand": "Toyota",
       "model": "Corolla Cross XRE",
+      "category": "SUV",
+      "transmission": "Automático",
+      "fuel": "Flex",
       "plate": "RTA2B41",
       "dailyRate": 189,
       "status": "Disponível",
       "ownerType": "Empresa",
-      "ownerName": "Frota Horizonte"
+      "ownerName": "Frota Horizonte",
+      "cityIbge": 3106200,
+      "city": "Belo Horizonte",
+      "state": "MG",
+      "stateName": "Minas Gerais"
     },
     {
       "id": 2,
@@ -68,11 +208,18 @@
       "year": 2023,
       "brand": "Hyundai",
       "model": "Creta Platinum",
+      "category": "SUV",
+      "transmission": "Automático",
+      "fuel": "Flex",
       "plate": "RTB4C18",
       "dailyRate": 159,
       "status": "Disponível",
       "ownerType": "Empresa",
-      "ownerName": "Frota Horizonte"
+      "ownerName": "Frota Horizonte",
+      "cityIbge": 3106200,
+      "city": "Belo Horizonte",
+      "state": "MG",
+      "stateName": "Minas Gerais"
     },
     {
       "id": 3,
@@ -80,11 +227,18 @@
       "year": 2024,
       "brand": "Volkswagen",
       "model": "Polo Highline",
+      "category": "Hatch",
+      "transmission": "Automático",
+      "fuel": "Flex",
       "plate": "RTC7D25",
       "dailyRate": 119,
       "status": "Disponível",
       "ownerType": "Banco",
-      "ownerName": "Banco Caminhos"
+      "ownerName": "Banco Caminhos",
+      "cityIbge": 3106200,
+      "city": "Belo Horizonte",
+      "state": "MG",
+      "stateName": "Minas Gerais"
     },
     {
       "id": 4,
@@ -92,11 +246,18 @@
       "year": 2023,
       "brand": "Jeep",
       "model": "Renegade Longitude",
+      "category": "SUV",
+      "transmission": "Automático",
+      "fuel": "Flex",
       "plate": "RTD1E09",
       "dailyRate": 169,
       "status": "Disponível",
       "ownerType": "Cliente",
-      "ownerName": "Ana Ribeiro"
+      "ownerName": "Ana Ribeiro",
+      "cityIbge": 3106200,
+      "city": "Belo Horizonte",
+      "state": "MG",
+      "stateName": "Minas Gerais"
     },
     {
       "id": 5,
@@ -104,11 +265,18 @@
       "year": 2022,
       "brand": "Chevrolet",
       "model": "Onix Premier",
+      "category": "Compacto",
+      "transmission": "Automático",
+      "fuel": "Flex",
       "plate": "RTE6F32",
       "dailyRate": 109,
       "status": "Indisponível",
       "ownerType": "Empresa",
-      "ownerName": "Frota Horizonte"
+      "ownerName": "Frota Horizonte",
+      "cityIbge": 3106200,
+      "city": "Belo Horizonte",
+      "state": "MG",
+      "stateName": "Minas Gerais"
     },
     {
       "id": 6,
@@ -116,11 +284,18 @@
       "year": 2025,
       "brand": "Fiat",
       "model": "Argo Trekking 1.3 CVT",
+      "category": "Compacto",
+      "transmission": "Automático",
+      "fuel": "Flex",
       "plate": "RTF3G56",
       "dailyRate": 125,
       "status": "Disponível",
       "ownerType": "Empresa",
-      "ownerName": "Frota Horizonte"
+      "ownerName": "Frota Horizonte",
+      "cityIbge": 3106200,
+      "city": "Belo Horizonte",
+      "state": "MG",
+      "stateName": "Minas Gerais"
     },
     {
       "id": 7,
@@ -128,11 +303,18 @@
       "year": 2025,
       "brand": "Hyundai",
       "model": "HB20 Platinum Plus 1.0 TGDI",
+      "category": "Compacto",
+      "transmission": "Automático",
+      "fuel": "Flex",
       "plate": "RTG8H21",
       "dailyRate": 139,
       "status": "Disponível",
       "ownerType": "Empresa",
-      "ownerName": "Frota Horizonte"
+      "ownerName": "Frota Horizonte",
+      "cityIbge": 3106200,
+      "city": "Belo Horizonte",
+      "state": "MG",
+      "stateName": "Minas Gerais"
     },
     {
       "id": 8,
@@ -140,11 +322,18 @@
       "year": 2025,
       "brand": "Volkswagen",
       "model": "T-Cross Highline 250 TSI",
+      "category": "SUV",
+      "transmission": "Automático",
+      "fuel": "Flex",
       "plate": "RTH5J74",
       "dailyRate": 229,
       "status": "Disponível",
       "ownerType": "Banco",
-      "ownerName": "Banco Caminhos"
+      "ownerName": "Banco Caminhos",
+      "cityIbge": 3106200,
+      "city": "Belo Horizonte",
+      "state": "MG",
+      "stateName": "Minas Gerais"
     },
     {
       "id": 9,
@@ -152,11 +341,18 @@
       "year": 2025,
       "brand": "Chevrolet",
       "model": "Tracker Premier 1.2 Turbo",
+      "category": "SUV",
+      "transmission": "Automático",
+      "fuel": "Flex",
       "plate": "RTJ9K63",
       "dailyRate": 199,
       "status": "Disponível",
       "ownerType": "Empresa",
-      "ownerName": "Frota Horizonte"
+      "ownerName": "Frota Horizonte",
+      "cityIbge": 3106200,
+      "city": "Belo Horizonte",
+      "state": "MG",
+      "stateName": "Minas Gerais"
     },
     {
       "id": 10,
@@ -164,11 +360,18 @@
       "year": 2025,
       "brand": "Jeep",
       "model": "Compass Longitude T270",
+      "category": "SUV",
+      "transmission": "Automático",
+      "fuel": "Flex",
       "plate": "RTK4L18",
       "dailyRate": 289,
       "status": "Disponível",
       "ownerType": "Empresa",
-      "ownerName": "Frota Horizonte"
+      "ownerName": "Frota Horizonte",
+      "cityIbge": 3106200,
+      "city": "Belo Horizonte",
+      "state": "MG",
+      "stateName": "Minas Gerais"
     },
     {
       "id": 11,
@@ -176,11 +379,18 @@
       "year": 2025,
       "brand": "Toyota",
       "model": "Corolla Altis Premium Hybrid",
+      "category": "Sedã",
+      "transmission": "Automático",
+      "fuel": "Híbrido flex",
       "plate": "RTL7M42",
       "dailyRate": 319,
       "status": "Disponível",
       "ownerType": "Banco",
-      "ownerName": "Banco Caminhos"
+      "ownerName": "Banco Caminhos",
+      "cityIbge": 3106200,
+      "city": "Belo Horizonte",
+      "state": "MG",
+      "stateName": "Minas Gerais"
     },
     {
       "id": 12,
@@ -188,11 +398,18 @@
       "year": 2025,
       "brand": "Fiat",
       "model": "Fastback Impetus Hybrid",
+      "category": "SUV",
+      "transmission": "Automático",
+      "fuel": "Híbrido flex",
       "plate": "RTM2N85",
       "dailyRate": 239,
       "status": "Disponível",
       "ownerType": "Empresa",
-      "ownerName": "Frota Horizonte"
+      "ownerName": "Frota Horizonte",
+      "cityIbge": 3106200,
+      "city": "Belo Horizonte",
+      "state": "MG",
+      "stateName": "Minas Gerais"
     },
     {
       "id": 13,
@@ -200,11 +417,18 @@
       "year": 2025,
       "brand": "Volkswagen",
       "model": "Nivus Highline 200 TSI",
+      "category": "SUV",
+      "transmission": "Automático",
+      "fuel": "Flex",
       "plate": "RTN6P39",
       "dailyRate": 189,
       "status": "Disponível",
       "ownerType": "Empresa",
-      "ownerName": "Frota Horizonte"
+      "ownerName": "Frota Horizonte",
+      "cityIbge": 3106200,
+      "city": "Belo Horizonte",
+      "state": "MG",
+      "stateName": "Minas Gerais"
     },
     {
       "id": 14,
@@ -212,11 +436,18 @@
       "year": 2024,
       "brand": "Nissan",
       "model": "Kicks Exclusive 1.6 CVT",
+      "category": "SUV",
+      "transmission": "Automático",
+      "fuel": "Flex",
       "plate": "RTP1Q57",
       "dailyRate": 179,
       "status": "Disponível",
       "ownerType": "Empresa",
-      "ownerName": "Frota Horizonte"
+      "ownerName": "Frota Horizonte",
+      "cityIbge": 3106200,
+      "city": "Belo Horizonte",
+      "state": "MG",
+      "stateName": "Minas Gerais"
     },
     {
       "id": 15,
@@ -224,11 +455,18 @@
       "year": 2025,
       "brand": "Honda",
       "model": "City Touring 1.5 CVT",
+      "category": "Sedã",
+      "transmission": "Automático",
+      "fuel": "Flex",
       "plate": "RTQ8R24",
       "dailyRate": 179,
       "status": "Disponível",
       "ownerType": "Banco",
-      "ownerName": "Banco Caminhos"
+      "ownerName": "Banco Caminhos",
+      "cityIbge": 3106200,
+      "city": "Belo Horizonte",
+      "state": "MG",
+      "stateName": "Minas Gerais"
     },
     {
       "id": 16,
@@ -236,11 +474,18 @@
       "year": 2025,
       "brand": "Volkswagen",
       "model": "Virtus Highline 250 TSI",
+      "category": "Sedã",
+      "transmission": "Automático",
+      "fuel": "Flex",
       "plate": "RTR3S68",
       "dailyRate": 179,
       "status": "Disponível",
       "ownerType": "Empresa",
-      "ownerName": "Frota Horizonte"
+      "ownerName": "Frota Horizonte",
+      "cityIbge": 3106200,
+      "city": "Belo Horizonte",
+      "state": "MG",
+      "stateName": "Minas Gerais"
     },
     {
       "id": 17,
@@ -248,11 +493,18 @@
       "year": 2025,
       "brand": "Fiat",
       "model": "Strada Volcano CD 1.3",
+      "category": "Picape",
+      "transmission": "Automático",
+      "fuel": "Flex",
       "plate": "RTS5T91",
       "dailyRate": 189,
       "status": "Disponível",
       "ownerType": "Empresa",
-      "ownerName": "Frota Horizonte"
+      "ownerName": "Frota Horizonte",
+      "cityIbge": 3106200,
+      "city": "Belo Horizonte",
+      "state": "MG",
+      "stateName": "Minas Gerais"
     },
     {
       "id": 18,
@@ -260,11 +512,18 @@
       "year": 2025,
       "brand": "Fiat",
       "model": "Toro Freedom T270",
+      "category": "Picape",
+      "transmission": "Automático",
+      "fuel": "Flex",
       "plate": "RTT9U36",
       "dailyRate": 249,
       "status": "Disponível",
       "ownerType": "Empresa",
-      "ownerName": "Frota Horizonte"
+      "ownerName": "Frota Horizonte",
+      "cityIbge": 3106200,
+      "city": "Belo Horizonte",
+      "state": "MG",
+      "stateName": "Minas Gerais"
     },
     {
       "id": 19,
@@ -272,11 +531,18 @@
       "year": 2025,
       "brand": "Chevrolet",
       "model": "Spin Premier 7 lugares",
+      "category": "Minivan",
+      "transmission": "Automático",
+      "fuel": "Flex",
       "plate": "RTU4V72",
       "dailyRate": 199,
       "status": "Disponível",
       "ownerType": "Banco",
-      "ownerName": "Banco Caminhos"
+      "ownerName": "Banco Caminhos",
+      "cityIbge": 3106200,
+      "city": "Belo Horizonte",
+      "state": "MG",
+      "stateName": "Minas Gerais"
     },
     {
       "id": 20,
@@ -284,11 +550,18 @@
       "year": 2025,
       "brand": "Renault",
       "model": "Kardian Première Edition 1.0 Turbo",
+      "category": "SUV",
+      "transmission": "Automático",
+      "fuel": "Flex",
       "plate": "RTV7W15",
       "dailyRate": 169,
       "status": "Disponível",
       "ownerType": "Empresa",
-      "ownerName": "Frota Horizonte"
+      "ownerName": "Frota Horizonte",
+      "cityIbge": 3106200,
+      "city": "Belo Horizonte",
+      "state": "MG",
+      "stateName": "Minas Gerais"
     }
   ],
   "requests": [
@@ -326,6 +599,200 @@
       "createdAt": "2026-08-20T13:20:00.000Z",
       "reviewedBy": "Marcos Lima",
       "analysisNote": "Renda compatível com o valor solicitado."
+    },
+    {
+      "id": 3,
+      "clientId": 2,
+      "userId": 5,
+      "clientName": "Bruno Martins",
+      "vehicleId": 1,
+      "vehicleName": "Toyota Corolla Cross XRE",
+      "startDate": "2026-11-12",
+      "endDate": "2026-11-14",
+      "days": 3,
+      "totalValue": 567,
+      "monthlyIncome": 6200,
+      "pickupLocation": "Belo Horizonte - MG",
+      "returnLocation": "Belo Horizonte - MG",
+      "contractType": "Aluguel temporário",
+      "propertyOption": "Uso temporário, sem transferência de propriedade",
+      "creditRequested": false,
+      "creditAmount": 0,
+      "notes": "",
+      "status": "Em análise",
+      "createdAt": "2026-10-30T14:10:00.000Z",
+      "analysisNote": ""
+    },
+    {
+      "id": 4,
+      "clientId": 3,
+      "userId": 6,
+      "clientName": "Carolina Souza",
+      "vehicleId": 4,
+      "vehicleName": "Jeep Renegade Longitude",
+      "startDate": "2026-11-18",
+      "endDate": "2026-11-20",
+      "days": 3,
+      "totalValue": 507,
+      "monthlyIncome": 5700,
+      "pickupLocation": "Contagem - MG",
+      "returnLocation": "Contagem - MG",
+      "contractType": "Aluguel temporário",
+      "propertyOption": "Uso temporário, sem transferência de propriedade",
+      "creditRequested": false,
+      "creditAmount": 0,
+      "notes": "",
+      "status": "Aprovado",
+      "createdAt": "2026-10-25T10:00:00.000Z",
+      "reviewedBy": "Marcos Lima",
+      "reviewedAt": "2026-10-26T11:00:00.000Z",
+      "analysisNote": "Renda compatível com o valor solicitado."
+    },
+    {
+      "id": 5,
+      "clientId": 4,
+      "userId": 7,
+      "clientName": "Diego Ferreira",
+      "vehicleId": 6,
+      "vehicleName": "Fiat Argo Trekking 1.3 CVT",
+      "startDate": "2026-11-22",
+      "endDate": "2026-11-25",
+      "days": 4,
+      "totalValue": 500,
+      "monthlyIncome": 3900,
+      "pickupLocation": "Betim - MG",
+      "returnLocation": "Betim - MG",
+      "contractType": "Aluguel temporário",
+      "propertyOption": "Uso temporário, sem transferência de propriedade",
+      "creditRequested": false,
+      "creditAmount": 0,
+      "notes": "",
+      "status": "Rejeitado",
+      "createdAt": "2026-10-22T09:30:00.000Z",
+      "reviewedBy": "Marcos Lima",
+      "reviewedAt": "2026-10-23T09:00:00.000Z",
+      "analysisNote": "Pedido não aprovado pela análise financeira."
+    },
+    {
+      "id": 6,
+      "clientId": 5,
+      "userId": 8,
+      "clientName": "Eduarda Alves",
+      "vehicleId": 7,
+      "vehicleName": "Hyundai HB20 Platinum Plus 1.0 TGDI",
+      "startDate": "2026-11-27",
+      "endDate": "2026-11-29",
+      "days": 3,
+      "totalValue": 417,
+      "monthlyIncome": 5700,
+      "pickupLocation": "Nova Lima - MG",
+      "returnLocation": "Nova Lima - MG",
+      "contractType": "Aluguel temporário",
+      "propertyOption": "Uso temporário, sem transferência de propriedade",
+      "creditRequested": false,
+      "creditAmount": 0,
+      "notes": "",
+      "status": "Em análise",
+      "createdAt": "2026-10-31T12:15:00.000Z",
+      "analysisNote": ""
+    },
+    {
+      "id": 7,
+      "clientId": 6,
+      "userId": 9,
+      "clientName": "Felipe Costa",
+      "vehicleId": 9,
+      "vehicleName": "Chevrolet Tracker Premier 1.2 Turbo",
+      "startDate": "2026-12-01",
+      "endDate": "2026-12-04",
+      "days": 4,
+      "totalValue": 796,
+      "monthlyIncome": 5200,
+      "pickupLocation": "Lagoa Santa - MG",
+      "returnLocation": "Lagoa Santa - MG",
+      "contractType": "Aluguel com opção de compra",
+      "propertyOption": "Tenho interesse em adquirir o veículo ao fim do contrato",
+      "creditRequested": true,
+      "creditBankId": 4,
+      "creditBankName": "Banco Caminhos",
+      "creditAmount": 500,
+      "notes": "",
+      "status": "Aprovado",
+      "createdAt": "2026-10-18T16:45:00.000Z",
+      "reviewedBy": "Marcos Lima",
+      "reviewedAt": "2026-10-19T13:20:00.000Z",
+      "analysisNote": "Renda compatível com o valor solicitado."
+    },
+    {
+      "id": 8,
+      "clientId": 2,
+      "userId": 5,
+      "clientName": "Bruno Martins",
+      "vehicleId": 10,
+      "vehicleName": "Jeep Compass Longitude T270",
+      "startDate": "2026-12-09",
+      "endDate": "2026-12-11",
+      "days": 3,
+      "totalValue": 867,
+      "monthlyIncome": 6200,
+      "pickupLocation": "Belo Horizonte - MG",
+      "returnLocation": "Belo Horizonte - MG",
+      "contractType": "Arrendamento mercantil (leasing)",
+      "propertyOption": "Tenho interesse em adquirir o veículo ao fim do contrato",
+      "creditRequested": true,
+      "creditBankId": 4,
+      "creditBankName": "Banco Caminhos",
+      "creditAmount": 1200,
+      "notes": "",
+      "status": "Em análise",
+      "createdAt": "2026-10-29T15:40:00.000Z",
+      "analysisNote": ""
+    },
+    {
+      "id": 9,
+      "clientId": 3,
+      "userId": 6,
+      "clientName": "Carolina Souza",
+      "vehicleId": 11,
+      "vehicleName": "Toyota Corolla Altis Premium Hybrid",
+      "startDate": "2026-12-15",
+      "endDate": "2026-12-18",
+      "days": 4,
+      "totalValue": 1276,
+      "monthlyIncome": 5700,
+      "pickupLocation": "Contagem - MG",
+      "returnLocation": "Contagem - MG",
+      "contractType": "Aluguel temporário",
+      "propertyOption": "Uso temporário, sem transferência de propriedade",
+      "creditRequested": false,
+      "creditAmount": 0,
+      "notes": "",
+      "status": "Cancelado",
+      "createdAt": "2026-10-15T08:30:00.000Z",
+      "analysisNote": "Cancelado pelo cliente."
+    },
+    {
+      "id": 10,
+      "clientId": 4,
+      "userId": 7,
+      "clientName": "Diego Ferreira",
+      "vehicleId": 12,
+      "vehicleName": "Fiat Fastback Impetus Hybrid",
+      "startDate": "2026-12-20",
+      "endDate": "2026-12-22",
+      "days": 3,
+      "totalValue": 717,
+      "monthlyIncome": 3900,
+      "pickupLocation": "Betim - MG",
+      "returnLocation": "Betim - MG",
+      "contractType": "Aluguel temporário",
+      "propertyOption": "Uso temporário, sem transferência de propriedade",
+      "creditRequested": false,
+      "creditAmount": 0,
+      "notes": "",
+      "status": "Em análise",
+      "createdAt": "2026-11-01T10:10:00.000Z",
+      "analysisNote": ""
     }
   ]
 }

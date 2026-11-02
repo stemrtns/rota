@@ -3,64 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta
-      name="description"
-      content="Alugue seu próximo carro com transparência, praticidade e análise de crédito em um só lugar."
-    />
-    <title>Rota — aluguel de carros sem complicação</title>
+    <meta name="description" content="Alugue seu pr&#243;ximo carro com transpar&#234;ncia, praticidade e an&#225;lise de cr&#233;dito em um s&#243; lugar." />
+    <title>Rota - aluguel de carros sem complicacao</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="styles.css?v=1.6.0" />
-    <script type="module" src="app.js?v=1.6.0"></script>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css?v=1.8.14" />
+    <script type="module" src="app.js?v=1.8.14"></script>
   </head>
-  <body>
-    <header class="site-header">
-      <div class="container header-content">
-        <a class="brand" href="#inicio" aria-label="Rota — início">
-          <span class="brand-mark" aria-hidden="true">
-            <svg viewBox="0 0 42 42" fill="none">
-              <rect width="42" height="42" rx="14" fill="currentColor" />
-              <path d="M10 24.5h22l-2.2-6.1a3 3 0 0 0-2.8-2H15a3 3 0 0 0-2.8 2L10 24.5Z" stroke="white" stroke-width="2.2" stroke-linejoin="round" />
-              <path d="M8.8 24.5h24.4v5a2 2 0 0 1-2 2h-1.1v-3H12.1v3H11a2 2 0 0 1-2-2v-5Z" fill="white" />
-              <circle cx="15" cy="24.8" r="1.3" fill="currentColor" />
-              <circle cx="27" cy="24.8" r="1.3" fill="currentColor" />
-            </svg>
-          </span>
-          <span class="brand-name">rota<span>.</span></span>
-        </a>
-
-        <button class="mobile-menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false">
-          <span></span><span></span><span></span>
-        </button>
-
-        <nav class="main-nav" aria-label="Navegação principal">
-          <button class="nav-link active" type="button" data-nav="inicio">Início</button>
-          <button class="nav-link" type="button" data-nav="veiculos">Veículos</button>
-          <button class="nav-link" type="button" data-nav="como-funciona">Como funciona</button>
-          <button class="nav-link auth-nav" type="button" data-nav="solicitar" hidden>Solicitar aluguel</button>
-          <button class="nav-link auth-nav" type="button" data-nav="pedidos" hidden>Pedidos e contratos</button>
-          <button class="nav-link auth-nav" type="button" data-nav="cadastro" hidden>Meu cadastro</button>
-          <button class="nav-link agent-nav" type="button" data-nav="analise" hidden>Análise</button>
-          <button class="nav-link agent-nav" type="button" data-nav="frota" hidden>Frota</button>
-        </nav>
-
-        <div class="header-actions">
-          <span class="account-name" id="account-name" hidden></span>
-          <button class="button button-outline button-small" id="login-open" type="button">Entrar</button>
-          <button class="button button-primary button-small" id="register-open" type="button">Criar conta</button>
-          <button class="button button-outline button-small" id="logout-button" type="button" hidden>Sair</button>
-        </div>
-      </div>
-    </header>
-
+  <body data-page="inicio">
+    <div data-layout="header"></div>
     <main>
       <section class="page-section is-active" id="view-inicio" data-view="inicio">
         <div class="hero-wrap">
@@ -71,11 +24,8 @@
               <p>Encontre o veículo ideal, solicite seu aluguel e acompanhe todo o processo em um só lugar.</p>
               <div class="hero-actions">
                 <button class="button button-primary" type="button" data-nav="veiculos">Ver veículos disponíveis</button>
-                <button class="button button-light" type="button" data-nav="como-funciona">Saiba mais</button>
+                <a class="button button-light" href="#como-funciona">Saiba mais</a>
               </div>
-            </div>
-            <div class="hero-art" aria-label="Ilustração de um veículo" role="img">
-              <img class="hero-car" src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&amp;fit=crop&amp;w=1000&amp;q=85" alt="" />
             </div>
             <div class="hero-auth-card" id="home-auth-panel">
               <div class="hero-auth-heading"><span class="hero-auth-icon">↗</span><div><h2>Acesso ao sistema</h2><p>Entre para continuar</p></div></div>
@@ -107,184 +57,45 @@
 
         <section class="how-section" id="como-funciona">
           <div class="container section-block">
-            <div class="section-heading">
+            <div class="section-heading steps-heading">
               <div><span class="eyebrow">Prático do início ao fim</span><h2>Como funciona o <span>sistema</span></h2></div>
               <p>Veja como é simples alugar seu próximo carro.</p>
             </div>
             <div class="steps-grid">
-              <article class="step-card"><span class="step-number">01</span><span class="step-icon">♙</span><h3>Acesso ao sistema</h3><p>Entre com seu usuário cadastrado para acessar todas as funcionalidades.</p></article>
-              <article class="step-card"><span class="step-number">02</span><span class="step-icon">▤</span><h3>Cadastro do cliente</h3><p>Informe seus dados pessoais e suas fontes de renda para a análise.</p></article>
-              <article class="step-card"><span class="step-number">03</span><span class="step-icon">▣</span><h3>Solicitação do aluguel</h3><p>Escolha um veículo disponível e envie seu pedido de contrato.</p></article>
-              <article class="step-card"><span class="step-number">04</span><span class="step-icon">⌕</span><h3>Análise financeira</h3><p>Um agente avalia o pedido e as informações financeiras enviadas.</p></article>
-              <article class="step-card"><span class="step-number">05</span><span class="step-icon">✓</span><h3>Contrato e aluguel</h3><p>Acompanhe o resultado e consulte seus pedidos a qualquer momento.</p></article>
+              <article class="step-card"><span class="step-number" aria-label="Etapa 1">1</span><h3>Acesso ao sistema</h3><p>Entre com seu usuário cadastrado para acessar todas as funcionalidades.</p></article>
+              <article class="step-card"><span class="step-number" aria-label="Etapa 2">2</span><h3>Cadastro do cliente</h3><p>Informe seus dados pessoais e suas fontes de renda para a análise.</p></article>
+              <article class="step-card"><span class="step-number" aria-label="Etapa 3">3</span><h3>Solicitação do aluguel</h3><p>Escolha um veículo disponível e envie seu pedido de contrato.</p></article>
+              <article class="step-card"><span class="step-number" aria-label="Etapa 4">4</span><h3>Análise financeira</h3><p>Um agente avalia o pedido e as informações financeiras enviadas.</p></article>
+              <article class="step-card"><span class="step-number" aria-label="Etapa 5">5</span><h3>Contrato e aluguel</h3><p>Acompanhe o resultado e consulte seus pedidos a qualquer momento.</p></article>
             </div>
           </div>
         </section>
         <section class="container cta-banner">
-          <div><span class="eyebrow">ROTA • ALUGUEL DE CARROS</span><h2>Encontre agora o carro<br />ideal para você!</h2></div>
-          <button class="button button-primary" type="button" data-nav="veiculos">Consultar veículos <span aria-hidden="true">→</span></button>
-          <span class="cta-car" aria-hidden="true">▰</span>
-        </section>
-      </section>
-
-      <section class="page-section" id="view-veiculos" data-view="veiculos" hidden>
-        <div class="page-banner">
-          <div class="container"><span class="eyebrow">CATÁLOGO ROTA</span><h1>Veículos <span>disponíveis</span></h1><p>Explore os modelos, veja mais fotos e encontre seu próximo carro. A visita é livre, sem precisar criar conta.</p></div>
-        </div>
-        <div class="container page-content">
-          <div class="catalog-toolbar">
-            <div class="catalog-count" id="catalog-count"></div>
-            <div class="catalog-filters">
-              <label class="filter-search"><span class="visually-hidden">Buscar veículo</span><span aria-hidden="true">⌕</span><input id="catalog-search" type="search" placeholder="Buscar marca ou modelo" /></label>
-              <select id="catalog-sort" aria-label="Ordenar veículos"><option value="featured">Em destaque</option><option value="price-asc">Menor preço</option><option value="price-desc">Maior preço</option></select>
+          <div class="cta-content">
+            <h2>Comece agora: cadastre-se<br />e solicite seu aluguel</h2>
+            <p>Crie sua conta, solicite o aluguel e acompanhe o parecer financeiro. A execução do contrato depende de decisão posterior.</p>
+            <label class="cta-city-label" for="home-state">Busque veículos disponíveis por cidade:</label>
+            <form class="cta-city-search" role="search" action="veiculos.html" method="get">
+              <select id="home-state" name="state" aria-label="Estado" required></select>
+              <select id="home-city" name="city" aria-label="Município" required></select>
+              <button class="button button-primary" type="submit">Buscar</button>
+            </form>
+            <div class="cta-actions">
+              <button class="button button-primary" type="button" data-auth-mode="register">Criar minha conta</button>
+              <button class="button button-light" type="button" data-auth-mode="login">Já tenho conta — Entrar</button>
             </div>
           </div>
-          <div class="row g-4" id="catalog-vehicles" aria-live="polite"></div>
-        </div>
-      </section>
-
-      <section class="page-section" id="view-cadastro" data-view="cadastro" hidden>
-        <div class="page-banner">
-          <div class="container"><span class="eyebrow">Seus dados, com segurança</span><h1>Meu <span>cadastro.</span></h1><p>Mantenha suas informações atualizadas para agilizar sua análise.</p></div>
-        </div>
-        <div class="container page-content narrow-content">
-          <div class="form-card">
-            <div class="form-card-heading"><div><span class="form-step">PERFIL DO CLIENTE</span><h2>Dados pessoais</h2><p>Preencha as informações para fazer seus pedidos de aluguel.</p></div><span class="required-note">* Campos obrigatórios</span></div>
-            <form id="profile-form">
-              <div class="form-grid">
-                <label class="form-field form-field-wide"><span>Nome completo <b>*</b></span><input id="profile-name" name="name" autocomplete="name" required /></label>
-                <label class="form-field"><span>RG <b>*</b></span><input id="profile-rg" name="rg" required /></label>
-                <label class="form-field"><span>CPF <b>*</b></span><input id="profile-cpf" name="cpf" inputmode="numeric" placeholder="000.000.000-00" required /></label>
-                <label class="form-field form-field-wide"><span>Endereço completo <b>*</b></span><input id="profile-address" name="address" autocomplete="street-address" placeholder="Rua, número, bairro, cidade e CEP" required /></label>
-                <label class="form-field form-field-wide"><span>Profissão <b>*</b></span><input id="profile-profession" name="profession" required /></label>
-              </div>
-              <div class="employers-heading"><div><span class="form-step">RENDA</span><h3>Entidades empregadoras e rendimentos</h3><p>Informe até 3 fontes de renda mensal.</p></div><button class="button button-outline button-small" id="add-employer" type="button">+ Adicionar fonte</button></div>
-              <div class="employer-list" id="employer-list"></div>
-              <div class="form-actions"><span class="form-message" id="profile-message" aria-live="polite"></span><button class="button button-primary" type="submit">Salvar cadastro <span aria-hidden="true">→</span></button></div>
-              <div class="danger-zone"><div><strong>Excluir meu cadastro</strong><p>Seus dados de cliente serão removidos. Sua conta continuará ativa.</p></div><button class="button button-danger button-small" id="delete-profile" type="button">Excluir cadastro</button></div>
-            </form>
-          </div>
-        </div>
-      </section>
-
-      <section class="page-section" id="view-solicitar" data-view="solicitar" hidden>
-        <div class="page-banner">
-          <div class="container"><span class="eyebrow">É só o começo de uma boa viagem</span><h1>Solicitar <span>aluguel.</span></h1><p>Escolha seu veículo e as datas. Acompanhe a análise em Meus pedidos.</p></div>
-        </div>
-        <div class="container page-content narrow-content">
-          <div class="form-card">
-            <div class="form-card-heading"><div><span class="form-step" id="request-step">NOVO PEDIDO</span><h2>Quase na estrada</h2><p>Confira os detalhes antes de enviar sua solicitação.</p></div><span class="required-note">* Campos obrigatórios</span></div>
-            <form id="request-form">
-              <div class="form-grid">
-                <label class="form-field form-field-wide"><span>Veículo <b>*</b></span><select id="request-vehicle" required><option value="">Selecione um veículo</option></select></label>
-                <label class="form-field"><span>Retirada <b>*</b></span><input id="request-start" type="date" required /></label>
-                <label class="form-field"><span>Devolução <b>*</b></span><input id="request-end" type="date" required /></label>
-                <label class="form-field form-field-wide"><span>Observações</span><textarea id="request-notes" rows="3" placeholder="Conte algo importante sobre o seu pedido..."></textarea></label>
-              </div>
-              <div class="request-estimate" id="request-estimate"><span>Estimativa do aluguel</span><strong>Selecione um veículo e as datas</strong></div>
-              <div class="form-actions"><button class="button button-text" id="request-cancel-edit" type="button" hidden>Cancelar edição</button><span class="form-message" id="request-message" aria-live="polite"></span><button class="button button-primary" type="submit">Enviar pedido <span aria-hidden="true">→</span></button></div>
-            </form>
-          </div>
-        </div>
-      </section>
-
-      <section class="page-section" id="view-pedidos" data-view="pedidos" hidden>
-        <div class="page-banner">
-          <div class="container"><span class="eyebrow">ÁREA DO CLIENTE · MEUS PEDIDOS</span><h1>Pedidos e <span>contratos</span></h1><p>Consulte suas solicitações e acompanhe o andamento de cada contrato.</p></div>
-        </div>
-        <div class="container page-content">
-          <div class="orders-heading"><div id="orders-summary"></div><button class="button button-primary" type="button" data-nav="solicitar">+ Novo pedido</button></div>
-          <div class="orders-list" id="orders-list"></div>
-          <section class="order-details" id="order-details" aria-live="polite"></section>
-        </div>
-      </section>
-
-      <section class="page-section" id="view-analise" data-view="analise" hidden>
-        <div class="page-banner">
-          <div class="container"><span class="eyebrow">Área do agente</span><h1>Análise de <span>pedidos.</span></h1><p>Avalie as informações financeiras e atualize o status dos contratos.</p></div>
-        </div>
-        <div class="container page-content">
-          <div class="analysis-stats" id="analysis-stats"></div>
-          <div class="orders-heading"><div id="analysis-summary"></div><div class="status-legend"><span class="status-dot status-pending"></span> Aguardando análise</div></div>
-          <div class="analysis-list" id="analysis-list"></div>
-        </div>
-      </section>
-
-      <section class="page-section" id="view-frota" data-view="frota" hidden>
-        <div class="page-banner">
-          <div class="container"><span class="eyebrow">Área de gestão</span><h1>Gestão da <span>frota.</span></h1><p>Cadastre e atualize os veículos disponíveis no catálogo.</p></div>
-        </div>
-        <div class="container page-content">
-          <div class="orders-heading"><div><span class="form-step">VEÍCULOS CADASTRADOS</span><h2>Seu catálogo, atualizado</h2></div><button class="button button-primary" id="new-vehicle" type="button">+ Cadastrar veículo</button></div>
-          <div class="fleet-list" id="fleet-list"></div>
-        </div>
+          <svg class="cta-illustration" viewBox="0 0 360 250" aria-hidden="true" focusable="false">
+            <path fill="currentColor" d="M105 35C116 12 135 3 158 3h44c23 0 42 9 53 32l25 56c22 9 36 27 36 54v39c0 14-11 25-25 25h-13a31 31 0 0 1-60 0h-76a31 31 0 0 1-60 0H69c-14 0-25-11-25-25v-39c0-27 14-45 36-54l25-56Z" />
+            <path fill="#171717" d="M126 35c7-13 17-19 32-19h44c15 0 25 6 32 19l17 39H109l17-39Z" />
+            <path fill="#171717" d="m86 101 40-12h70c17 0 30 3 42 9l35 18c-18 12-39 18-63 18h-99c-24 0-45-6-63-18l38-15Z" />
+            <path fill="#fff" d="m66 115 30 9-27 11-21-6 18-14Zm228 0-30 9 27 11 21-6-18-14Z" />
+            <path fill="#171717" d="M119 151h122c8 0 14 6 14 14s-6 14-14 14H119c-8 0-14-6-14-14s6-14 14-14Z" />
+          </svg>
+        </section>
       </section>
     </main>
-
-    <footer class="site-footer">
-      <div class="container footer-main">
-        <a class="brand footer-brand" href="#inicio"><span class="brand-mark" aria-hidden="true">↗</span><span class="brand-name">rota<span>.</span></span></a>
-        <p>Seu próximo destino começa com uma boa escolha.</p>
-        <span class="footer-copy">© 2026 Rota. Feito para ir mais longe.</span>
-      </div>
-    </footer>
-
-    <div class="modal-backdrop" id="auth-modal" aria-hidden="true">
-      <section class="dialog-card auth-dialog" role="dialog" aria-modal="true" aria-labelledby="auth-title">
-        <button class="dialog-close" type="button" data-close-modal aria-label="Fechar">×</button>
-        <span class="dialog-mark">↗</span>
-        <span class="eyebrow" id="auth-eyebrow">BEM-VINDO À ROTA</span>
-        <h2 id="auth-title">Entre na sua conta</h2>
-        <p id="auth-description">Acesse seus pedidos e continue de onde parou.</p>
-        <form id="auth-form">
-          <label class="form-field register-only" hidden><span>Nome completo</span><input id="auth-name" autocomplete="name" /></label>
-          <label class="form-field"><span>E-mail</span><input id="auth-email" type="email" autocomplete="email" required /></label>
-          <label class="form-field"><span>Senha</span><input id="auth-password" type="password" autocomplete="current-password" required /></label>
-          <p class="form-message" id="auth-message" aria-live="polite"></p>
-          <button class="button button-primary button-full" id="auth-submit" type="submit">Entrar na minha conta <span aria-hidden="true">→</span></button>
-        </form>
-        <p class="auth-switch"><span id="auth-switch-copy">Ainda não tem uma conta?</span> <button type="button" id="auth-switch">Criar conta</button></p>
-        <div class="demo-access"><strong>Acesso de demonstração</strong><span>Cliente: ana@rota.com · rota123</span><span>Agente: agente@rota.com · rota123</span></div>
-      </section>
-    </div>
-
-    <div class="modal-backdrop" id="vehicle-modal" aria-hidden="true">
-      <section class="dialog-card vehicle-dialog" role="dialog" aria-modal="true" aria-labelledby="vehicle-modal-title">
-        <button class="dialog-close" type="button" data-close-modal aria-label="Fechar">×</button>
-        <span class="eyebrow">GESTÃO DA FROTA</span><h2 id="vehicle-modal-title">Cadastrar veículo</h2><p>Os dados serão exibidos no catálogo público.</p>
-        <form id="vehicle-form">
-          <div class="form-grid">
-            <label class="form-field"><span>Marca <b>*</b></span><input id="vehicle-brand" required /></label>
-            <label class="form-field"><span>Modelo <b>*</b></span><input id="vehicle-model" required /></label>
-            <label class="form-field"><span>Ano <b>*</b></span><input id="vehicle-year" type="number" min="1990" max="2035" required /></label>
-            <label class="form-field"><span>Matrícula <b>*</b></span><input id="vehicle-registration" required /></label>
-            <label class="form-field"><span>Placa <b>*</b></span><input id="vehicle-plate" required /></label>
-            <label class="form-field"><span>Diária (R$) <b>*</b></span><input id="vehicle-rate" type="number" min="1" step="0.01" required /></label>
-            <label class="form-field"><span>Disponibilidade</span><select id="vehicle-status"><option value="Disponível">Disponível</option><option value="Indisponível">Indisponível</option></select></label>
-            <label class="form-field"><span>Proprietário <b>*</b></span><select id="vehicle-owner-type"><option value="Empresa">Empresa</option><option value="Banco">Banco</option><option value="Cliente">Cliente</option></select></label>
-            <label class="form-field"><span>Nome do proprietário <b>*</b></span><input id="vehicle-owner-name" required /></label>
-          </div>
-          <p class="form-message" id="vehicle-message" aria-live="polite"></p>
-          <div class="dialog-actions"><button class="button button-outline" type="button" data-close-modal>Cancelar</button><button class="button button-primary" type="submit">Salvar veículo</button></div>
-        </form>
-      </section>
-    </div>
-
-    <div class="modal-backdrop gallery-backdrop" id="gallery-modal" aria-hidden="true">
-      <section class="dialog-card gallery-dialog" role="dialog" aria-modal="true" aria-labelledby="gallery-title">
-        <button class="dialog-close" type="button" data-close-modal aria-label="Fechar galeria">×</button>
-        <span class="eyebrow">GALERIA DO VEÍCULO</span>
-        <h2 id="gallery-title">Fotos do veículo</h2>
-        <div class="gallery-photo-stage">
-          <button class="gallery-step" type="button" data-gallery-step="-1" aria-label="Foto anterior">‹</button>
-          <img id="gallery-photo" src="" alt="" />
-          <button class="gallery-step" type="button" data-gallery-step="1" aria-label="Próxima foto">›</button>
-        </div>
-        <div class="gallery-caption-row"><span id="gallery-caption"></span><span>Imagens ilustrativas</span></div>
-        <div class="gallery-thumbnails" id="gallery-thumbnails" aria-label="Miniaturas das fotos"></div>
-      </section>
-    </div>
-
-    <div class="toast-region" id="toast-region" aria-live="polite" aria-atomic="true"></div>
+    <div data-layout="footer"></div>
+    <div data-layout="modals"></div>
   </body>
 </html>

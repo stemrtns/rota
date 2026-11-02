@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Escolha o ve&#237;culo e as datas para enviar uma solicita&#231;&#227;o de aluguel." />
+    <title>Solicitar aluguel - Rota</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css?v=1.8.14" />
+    <script type="module" src="app.js?v=1.8.14"></script>
+  </head>
+  <body data-page="solicitar">
+    <div data-layout="header"></div>
+    <main>
+      <section class="page-section is-active" id="view-solicitar" data-view="solicitar">
+        <div class="page-banner">
+          <div class="container"><span class="eyebrow">É só o começo de uma boa viagem</span><h1>Solicitar <span>aluguel.</span></h1><p>Escolha seu veículo e as datas. Acompanhe a análise em Meus pedidos.</p></div>
+        </div>
+        <div class="container page-content narrow-content">
+          <div class="form-card">
+            <div class="form-card-heading"><div><span class="form-step" id="request-step">NOVO PEDIDO · ETAPA 1 DE 5</span><h2>Quase na estrada</h2><p>Escolha o veículo e preencha as etapas para enviar sua solicitação.</p></div><span class="required-note">* Campos obrigatórios</span></div>
+            <ol class="request-progress" id="request-progress" aria-label="Etapas da solicitação">
+              <li class="is-current" data-step-label="1"><span>1</span><strong>Veículo</strong></li>
+              <li data-step-label="2"><span>2</span><strong>Datas e locais</strong></li>
+              <li data-step-label="3"><span>3</span><strong>Contrato</strong></li>
+              <li data-step-label="4"><span>4</span><strong>Crédito</strong></li>
+              <li data-step-label="5"><span>5</span><strong>Revisão</strong></li>
+            </ol>
+            <div class="request-progress-track" aria-hidden="true"><span id="request-progress-bar"></span></div>
+            <form id="request-form" novalidate>
+              <section class="request-stage" data-request-stage="1" aria-labelledby="request-stage-title-1">
+                <div class="request-stage-heading"><span class="step-icon">01</span><div><h3 id="request-stage-title-1">Escolha o veículo</h3><p>Selecione um carro disponível no catálogo.</p></div></div>
+                <label class="form-field"><span>Veículo <b>*</b></span><select class="form-select" id="request-vehicle" required><option value="">Selecione um veículo</option></select></label>
+                <div class="request-vehicle-preview" id="request-vehicle-preview" aria-live="polite"></div>
+              </section>
+              <section class="request-stage" data-request-stage="2" aria-labelledby="request-stage-title-2" hidden>
+                <div class="request-stage-heading"><span class="step-icon">02</span><div><h3 id="request-stage-title-2">Defina datas e locais</h3><p>Informe quando e onde deseja retirar e devolver o veículo.</p></div></div>
+                <div class="form-grid">
+                  <label class="form-field"><span>Data de retirada <b>*</b></span><input class="form-control" id="request-start" type="date" required /></label>
+                  <label class="form-field"><span>Data de devolução <b>*</b></span><input class="form-control" id="request-end" type="date" required /></label>
+                  <label class="form-field"><span>Local de retirada <b>*</b></span><input class="form-control" id="request-pickup-location" list="municipality-options" autocomplete="street-address" placeholder="Cidade, endereço ou agência" required /></label>
+                  <label class="form-field"><span>Local de devolução <b>*</b></span><input class="form-control" id="request-return-location" list="municipality-options" autocomplete="street-address" placeholder="Cidade, endereço ou agência" required /></label>
+                  <datalist id="municipality-options"></datalist>
+                  <label class="form-field form-field-wide"><span>Observações</span><textarea class="form-control" id="request-notes" rows="3" placeholder="Conte algo importante sobre o seu pedido..."></textarea></label>
+                </div>
+                <div class="request-estimate" id="request-estimate"><span>Estimativa do aluguel</span><strong>Selecione um veículo e as datas</strong></div>
+              </section>
+              <section class="request-stage" data-request-stage="3" aria-labelledby="request-stage-title-3" hidden>
+                <div class="request-stage-heading"><span class="step-icon">03</span><div><h3 id="request-stage-title-3">Tipo de contrato e propriedade</h3><p>Escolha como pretende utilizar o veículo.</p></div></div>
+                <div class="form-grid">
+                  <label class="form-field form-field-wide"><span>Tipo de contrato <b>*</b></span><select class="form-select" id="request-contract-type" required><option value="">Selecione uma opção</option><option value="Aluguel temporário">Aluguel temporário</option><option value="Arrendamento mercantil (leasing)">Arrendamento mercantil (leasing)</option><option value="Aluguel com opção de compra">Aluguel com opção de compra</option></select></label>
+                  <label class="form-field form-field-wide"><span>Condição de propriedade <b>*</b></span><select class="form-select" id="request-property-option" required><option value="">Selecione uma opção</option><option value="Uso temporário, sem transferência de propriedade">Uso temporário, sem transferência de propriedade</option><option value="Tenho interesse em adquirir o veículo ao fim do contrato">Tenho interesse em adquirir o veículo ao fim do contrato</option></select></label>
+                </div>
+                <p class="form-hint">A escolha registra sua preferência e não representa transferência automática de propriedade.</p>
+              </section>
+              <section class="request-stage" data-request-stage="4" aria-labelledby="request-stage-title-4" hidden>
+                <div class="request-stage-heading"><span class="step-icon">04</span><div><h3 id="request-stage-title-4">Crédito bancário opcional</h3><p>Você pode enviar o pedido sem solicitar crédito.</p></div></div>
+                <label class="credit-option"><input id="request-credit-requested" type="checkbox" /><span><strong>Quero solicitar crédito bancário</strong><small>O banco selecionado poderá avaliar o valor informado junto com o agente.</small></span></label>
+                <div class="form-grid credit-fields" id="request-credit-fields" hidden>
+                  <label class="form-field"><span>Banco <b>*</b></span><select class="form-select" id="request-credit-bank"><option value="">Selecione um banco</option></select></label>
+                  <label class="form-field"><span>Valor solicitado (R$) <b>*</b></span><input class="form-control" id="request-credit-amount" type="number" min="1" step="0.01" placeholder="0,00" /></label>
+                </div>
+              </section>
+              <section class="request-stage" data-request-stage="5" aria-labelledby="request-stage-title-5" hidden>
+                <div class="request-stage-heading"><span class="step-icon">05</span><div><h3 id="request-stage-title-5">Revise e envie</h3><p>Confira os dados antes de encaminhar para análise.</p></div></div>
+                <div class="request-review" id="request-review" aria-live="polite"></div>
+              </section>
+              <div class="form-actions request-actions">
+                <button class="button button-text" id="request-cancel-edit" type="button" hidden>Cancelar edição</button>
+                <button class="button button-outline" id="request-previous" type="button" hidden>← Voltar</button>
+                <span class="form-message" id="request-message" aria-live="polite"></span>
+                <button class="button button-primary" id="request-next" type="button">Continuar <span aria-hidden="true">→</span></button>
+                <button class="button button-primary" id="request-submit" type="submit" hidden>Enviar pedido <span aria-hidden="true">→</span></button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+    <div data-layout="footer"></div>
+    <div data-layout="modals"></div>
+  </body>
+</html>

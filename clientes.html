@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Consulte e gerencie os cadastros dos clientes da Rota." />
+    <title>Cadastro de clientes - Rota</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css?v=1.8.14" />
+    <script type="module" src="app.js?v=1.8.14"></script>
+  </head>
+  <body data-page="clientes">
+    <div data-layout="header"></div>
+    <main>
+      <section class="page-section is-active" id="view-clientes" data-view="clientes">
+        <div class="page-banner">
+          <div class="container"><span class="eyebrow">Área do agente</span><h1>Cadastro de <span>clientes.</span></h1><p>Consulte os dados e documentos dos clientes cadastrados. A exclusão remove somente o cadastro, sem apagar a conta ou o histórico de pedidos.</p></div>
+        </div>
+        <div class="container page-content">
+          <div class="client-directory-heading">
+            <div id="client-directory-summary"></div>
+            <label class="client-directory-search"><span aria-hidden="true">⌕</span><span class="visually-hidden">Buscar cliente</span><input id="client-directory-search" type="search" placeholder="Buscar por nome, e-mail ou CPF" autocomplete="off" /></label>
+          </div>
+          <div class="client-directory-list" id="client-directory-list" aria-live="polite"></div>
+        </div>
+      </section>
+    </main>
+    <div data-layout="footer"></div>
+    <div data-layout="modals"></div>
+    <div class="modal-backdrop" id="client-detail-modal" aria-hidden="true">
+      <section class="dialog-card client-detail-dialog" role="dialog" aria-modal="true" aria-labelledby="client-detail-title">
+        <button class="dialog-close" type="button" data-close-modal aria-label="Fechar cadastro">×</button>
+        <span class="eyebrow">CADASTRO DO CLIENTE</span>
+        <h2 id="client-detail-title">Dados do cliente</h2>
+        <p class="client-detail-intro">Informações fornecidas para a análise do pedido.</p>
+        <div id="client-detail-content"></div>
+      </section>
+    </div>
+  </body>
+</html>
