@@ -9,8 +9,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=1.8.17" />
-    <script type="module" src="app.js?v=1.8.18"></script>
+    <link rel="stylesheet" href="styles.css?v=1.8.19" />
+    <script type="module" src="app.js?v=1.8.19"></script>
   </head>
   <body data-page="solicitar">
     <div data-layout="header"></div>
@@ -26,7 +26,7 @@
               <li class="is-current" data-step-label="1"><span>1</span><strong>Veículo</strong></li>
               <li data-step-label="2"><span>2</span><strong>Datas e locais</strong></li>
               <li data-step-label="3"><span>3</span><strong>Contrato</strong></li>
-              <li data-step-label="4"><span>4</span><strong>Crédito</strong></li>
+              <li data-step-label="4"><span>4</span><strong>Banco</strong></li>
               <li data-step-label="5"><span>5</span><strong>Revisão</strong></li>
             </ol>
             <div class="request-progress-track" aria-hidden="true"><span id="request-progress-bar"></span></div>
@@ -57,10 +57,12 @@
                 <p class="form-hint">A escolha registra sua preferência e não representa transferência automática de propriedade.</p>
               </section>
               <section class="request-stage" data-request-stage="4" aria-labelledby="request-stage-title-4" hidden>
-                <div class="request-stage-heading"><span class="step-icon">04</span><div><h3 id="request-stage-title-4">Crédito bancário opcional</h3><p>Você pode enviar o pedido sem solicitar crédito.</p></div></div>
-                <label class="credit-option"><input id="request-credit-requested" type="checkbox" /><span><strong>Quero solicitar crédito bancário</strong><small>O banco selecionado poderá avaliar o valor informado junto com o agente.</small></span></label>
+                <div class="request-stage-heading"><span class="step-icon">04</span><div><h3 id="request-stage-title-4">Aprovação do banco</h3><p>Todo aluguel precisa da autorização do agente e do aceite do banco. Crédito adicional é opcional.</p></div></div>
+                <div class="form-grid">
+                  <label class="form-field"><span>Banco responsável pela aprovação <b>*</b></span><select class="form-select" id="request-credit-bank" required><option value="">Selecione um banco</option></select></label>
+                </div>
+                <label class="credit-option"><input id="request-credit-requested" type="checkbox" /><span><strong>Também quero solicitar crédito bancário</strong><small>O valor solicitado será analisado pelo banco junto com o aluguel.</small></span></label>
                 <div class="form-grid credit-fields" id="request-credit-fields" hidden>
-                  <label class="form-field"><span>Banco <b>*</b></span><select class="form-select" id="request-credit-bank"><option value="">Selecione um banco</option></select></label>
                   <label class="form-field"><span>Valor solicitado (R$) <b>*</b></span><input class="form-control" id="request-credit-amount" type="number" min="1" step="0.01" placeholder="0,00" /></label>
                 </div>
               </section>

@@ -49,6 +49,10 @@ function isStaff() {
   return Boolean(state.user && staffRoles.has(state.user.role));
 }
 
+function isManager() {
+  return Boolean(state.user && ["agent", "company"].includes(state.user.role));
+}
+
 function currentClient() {
   return state.clients.find((client) => Number(client.userId) === Number(state.user?.id));
 }
@@ -320,7 +324,7 @@ function renderShell() {
     item.hidden = !authenticated || isStaff();
   });
   document.querySelectorAll(".agent-nav").forEach((item) => {
-    item.hidden = !isStaff();
+    item.hidden = !isStaff() || (state.user.role === "bank" && item.dataset.nav !== "analise");
   });
   const loginButton = document.getElementById("login-open");
   if (loginButton) loginButton.hidden = authenticated;
@@ -340,22 +344,34 @@ function renderShell() {
   if (authenticated && homeSessionPanel) {
     document.getElementById("home-session-name").textContent = state.user.name.split(" ")[0];
     document.getElementById("home-session-description").textContent = isStaff()
-      ? "Acesse as análises financeiras e a gestão da frota."
+      ? state.user.role === "bank"
+        ? "Acesse os pedidos encaminhados para aprovação bancária."
+        : "Acesse as análises financeiras e a gestão da frota."
       : "Consulte seus pedidos e acompanhe seus contratos.";
     const action = document.getElementById("home-session-action");
     action.dataset.nav = isStaff() ? "analise" : "pedidos";
-    action.textContent = isStaff() ? "Acessar painel do agente" : "Acessar meus pedidos";
+    action.textContent = isStaff()
+      ? state.user.role === "bank" ? "Acessar painel do banco" : "Acessar painel do agente"
+      : "Acessar meus pedidos";
   }
+  const analysisLink = document.querySelector('.agent-nav[data-nav="analise"]');
+  if (analysisLink) analysisLink.textContent = state.user?.role === "bank" ? "Aprovação bancária" : "Análise";
   document.querySelectorAll(".footer-copy").forEach((footer) => {
     footer.textContent = `© ${new Date().getFullYear()} Rota. Feito para ir mais longe.`;
   });
   const footerClientLink = document.getElementById("footer-client-link");
   if (footerClientLink) {
-    footerClientLink.href = isStaff() ? pageFiles.clientes : pageFiles.cadastro;
-    footerClientLink.textContent = isStaff() ? "Cadastro de clientes" : authenticated ? "Meu cadastro" : "Cadastro do cliente";
+    const bankUser = state.user?.role === "bank";
+    footerClientLink.hidden = bankUser;
+    if (footerClientLink.previousElementSibling) footerClientLink.previousElementSibling.hidden = bankUser;
+    footerClientLink.href = isManager() ? pageFiles.clientes : pageFiles.cadastro;
+    footerClientLink.textContent = isManager() ? "Cadastro de clientes" : authenticated ? "Meu cadastro" : "Cadastro do cliente";
   }
   const footerOrdersLink = document.getElementById("footer-orders-link");
-  if (footerOrdersLink && isStaff()) footerOrdersLink.href = pageFiles.analise;
+  if (footerOrdersLink) {
+    footerOrdersLink.href = isStaff() ? pageFiles.analise : pageFiles.pedidos;
+    footerOrdersLink.textContent = state.user?.role === "bank" ? "Aprovação bancária" : "Pedidos e contratos";
+  }
   document.querySelectorAll(".nav-link").forEach((item) => {
     item.classList.toggle("active", item.dataset.nav === state.currentPage);
   });
@@ -389,9 +405,13 @@ function routeTo(view) {
       view = "cadastro";
     }
   }
-  if ((view === "analise" || view === "clientes" || view === "frota") && !isStaff()) {
+  if (view === "analise" && !isStaff()) {
     toast("Esta área é exclusiva para agentes, empresas e bancos.", true);
     view = "inicio";
+  }
+  if ((view === "clientes" || view === "frota") && !isManager()) {
+    toast("Esta área é exclusiva para agentes e empresas.", true);
+    view = state.user?.role === "bank" ? "analise" : "inicio";
   }
 
   if (view !== state.currentPage) {
@@ -663,7 +683,7 @@ function renderRequestForm() {
     document.getElementById("request-contract-type").value = editing.contractType || "";
     document.getElementById("request-property-option").value = editing.propertyOption || "";
     document.getElementById("request-credit-requested").checked = Boolean(editing.creditRequested);
-    bankSelect.value = editing.creditBankId ? String(editing.creditBankId) : "";
+    bankSelect.value = String(editing.approvalBankId || editing.creditBankId || state.banks[0]?.id || "");
     document.getElementById("request-credit-amount").value = editing.creditAmount || "";
     document.getElementById("request-cancel-edit").hidden = false;
   } else {
@@ -677,7 +697,7 @@ function renderRequestForm() {
     document.getElementById("request-contract-type").value = "";
     document.getElementById("request-property-option").value = "";
     document.getElementById("request-credit-requested").checked = false;
-    bankSelect.value = "";
+    bankSelect.value = String(state.banks[0]?.id || "");
     document.getElementById("request-credit-amount").value = "";
     document.getElementById("request-cancel-edit").hidden = true;
   }
@@ -699,7 +719,7 @@ function updateCreditFields() {
   const fields = document.getElementById("request-credit-fields");
   if (!fields) return;
   fields.hidden = !requested;
-  document.getElementById("request-credit-bank").required = requested;
+  document.getElementById("request-credit-bank").required = true;
   document.getElementById("request-credit-amount").required = requested;
 }
 
@@ -733,6 +753,7 @@ function renderRequestReview() {
       ${detail("Devolução", `${formatDate(end)} · ${document.getElementById("request-return-location").value.trim()}`)}
       ${detail("Contrato", document.getElementById("request-contract-type").value)}
       ${detail("Propriedade", document.getElementById("request-property-option").value)}
+      ${detail("Banco responsável pela aprovação", bank?.name || "Selecione um banco")}
       ${detail("Crédito bancário", creditRequested ? `${bank?.name || "Banco não selecionado"} · ${formatCurrency(document.getElementById("request-credit-amount").value)}` : "Não solicitado")}
       ${detail("Período e valor", vehicle && days ? `${days} ${days === 1 ? "diária" : "diárias"} · ${formatCurrency(total)}` : "Informe as datas")}
     </dl>${document.getElementById("request-notes").value.trim() ? `<p class="request-review-note"><strong>Observações:</strong> ${escapeHtml(document.getElementById("request-notes").value.trim())}</p>` : ""}`;
@@ -797,11 +818,16 @@ function validateRequestStep(step) {
       message.textContent = "Selecione o tipo de contrato e a condição de propriedade.";
       return false;
     }
-  } else if (step === 4 && document.getElementById("request-credit-requested").checked) {
+  } else if (step === 4) {
     const bankId = document.getElementById("request-credit-bank").value;
+    if (!bankId) {
+      message.textContent = "Selecione o banco responsável pela aprovação do aluguel.";
+      return false;
+    }
+    if (!document.getElementById("request-credit-requested").checked) return true;
     const creditAmount = Number(document.getElementById("request-credit-amount").value);
-    if (!bankId || !Number.isFinite(creditAmount) || creditAmount <= 0) {
-      message.textContent = "Selecione um banco e informe um valor de crédito maior que zero.";
+    if (!Number.isFinite(creditAmount) || creditAmount <= 0) {
+      message.textContent = "Informe um valor de crédito maior que zero.";
       return false;
     }
     const vehicle = state.vehicles.find((item) => String(item.id) === document.getElementById("request-vehicle").value);
@@ -853,6 +879,50 @@ function statusBadge(status) {
   return `<span class="status-pill ${statusClass(status)}">${escapeHtml(status)}</span>`;
 }
 
+function approvalBankId(order) {
+  return order.approvalBankId || order.creditBankId || state.banks[0]?.id || "";
+}
+
+function isAssignedToCurrentBank(order) {
+  return state.user?.role === "bank" && String(approvalBankId(order)) === String(state.user.id);
+}
+
+function renderRequestTimeline(order) {
+  const bankRejected = order.status === "Rejeitado" && order.rejectedByRole === "bank";
+  const agentRejected = order.status === "Rejeitado" && !bankRejected;
+  const legacyApproved = order.status === "Aprovado" && !order.bankStatus;
+  const agentApproved = order.agentStatus === "Aprovado" ||
+    ["Aguardando aprovação do banco", "Aprovado"].includes(order.status) || bankRejected;
+  const bankApproved = order.bankStatus === "Aprovado" || legacyApproved;
+  const agentState = agentRejected ? "is-rejected" : agentApproved ? "is-done" :
+    order.status === "Em análise" ? "is-current" : "";
+  const bankState = bankRejected ? "is-rejected" : bankApproved ? "is-done" :
+    order.status === "Aguardando aprovação do banco" ? "is-current" : "";
+  const agentDescription = agentRejected
+    ? order.agentNote || order.analysisNote || "Pedido não autorizado pelo agente."
+    : agentApproved
+      ? `${order.agentNote || "Aluguel autorizado pelo agente."}${order.agentReviewedBy ? ` · ${order.agentReviewedBy}` : ""}`
+      : order.status === "Cancelado"
+        ? "Pedido cancelado antes da conclusão da análise."
+        : "Aguardando autorização do agente.";
+  const bankDescription = bankRejected
+    ? order.bankNote || order.analysisNote || "Aluguel não aceito pelo banco."
+    : bankApproved
+      ? `${order.bankNote || "Aluguel aceito pelo banco."}${order.bankReviewedBy ? ` · ${order.bankReviewedBy}` : ""}`
+      : order.status === "Aguardando aprovação do banco"
+        ? `Aguardando decisão de ${order.approvalBankName || order.creditBankName || "banco responsável"}.`
+        : agentRejected
+          ? "Não iniciada: o agente não autorizou o pedido."
+          : order.status === "Cancelado"
+            ? "Não realizada: pedido cancelado."
+            : "Iniciada após a autorização do agente.";
+  return `<ol class="status-timeline">
+    <li class="is-done"><span></span><strong>Pedido enviado</strong><small>${formatDate(String(order.createdAt || "").slice(0, 10))}</small></li>
+    <li class="${agentState}"><span></span><strong>Análise do agente</strong><small>${escapeHtml(agentDescription)}</small></li>
+    <li class="${bankState}"><span></span><strong>Aprovação do banco</strong><small>${escapeHtml(bankDescription)}</small></li>
+  </ol>`;
+}
+
 function renderOrders() {
   if (!document.getElementById("orders-list") || !state.user || isStaff()) return;
   const orders = state.requests.filter((item) => Number(item.userId) === Number(state.user.id))
@@ -883,17 +953,11 @@ function renderOrders() {
   }
   const client = currentClient();
   const vehicle = state.vehicles.find((item) => Number(item.id) === Number(selectedOrder.vehicleId));
-  const reviewed = ["Aprovado", "Rejeitado", "Cancelado"].includes(selectedOrder.status);
-  const approved = selectedOrder.status === "Aprovado";
   details.innerHTML = `<div class="order-details-heading"><div><span class="form-step">DETALHES DA SOLICITAÇÃO</span><h2>Pedido #${escapeHtml(selectedOrder.id)}</h2></div>${statusBadge(selectedOrder.status)}</div>
     <div class="order-details-grid">
       <article class="detail-panel detail-vehicle"><h3>Veículo solicitado</h3><div class="detail-car-image">${carIllustration(vehicle, "lazy", selectedOrder.vehicleName)}</div><strong>${escapeHtml(selectedOrder.vehicleName)}</strong><p>${escapeHtml(vehicle?.year || "—")} · Matrícula ${escapeHtml(vehicle?.matricula || "—")} · Placa ${escapeHtml(vehicle?.plate || "—")} · ${escapeHtml(vehicle?.transmission || "Câmbio não informado")} · ${escapeHtml(vehicle?.fuel || "Combustível não informado")}</p><span class="detail-price">${formatCurrency(selectedOrder.totalValue)} <small>valor total</small></span></article>
-      <article class="detail-panel"><h3>Dados do pedido</h3><dl class="detail-list"><div><dt>Retirada</dt><dd>${formatDate(selectedOrder.startDate)} · ${escapeHtml(selectedOrder.pickupLocation || "Local não informado")}</dd></div><div><dt>Devolução</dt><dd>${formatDate(selectedOrder.endDate)} · ${escapeHtml(selectedOrder.returnLocation || "Local não informado")}</dd></div><div><dt>Período</dt><dd>${escapeHtml(selectedOrder.days)} ${Number(selectedOrder.days) === 1 ? "diária" : "diárias"}</dd></div><div><dt>Tipo de contrato</dt><dd>${escapeHtml(selectedOrder.contractType || "Não informado")}</dd></div><div><dt>Propriedade</dt><dd>${escapeHtml(selectedOrder.propertyOption || "Não informada")}</dd></div><div><dt>Crédito bancário</dt><dd>${selectedOrder.creditRequested ? `${escapeHtml(selectedOrder.creditBankName || "Banco")} · ${formatCurrency(selectedOrder.creditAmount)}` : "Não solicitado"}</dd></div><div><dt>Profissão</dt><dd>${escapeHtml(client?.profession || "Não informada")}</dd></div><div><dt>Renda mensal</dt><dd>${formatCurrency(totalIncome(client))}</dd></div></dl>${selectedOrder.notes ? `<p class="detail-note"><strong>Observação:</strong> ${escapeHtml(selectedOrder.notes)}</p>` : ""}</article>
-      <article class="detail-panel detail-progress"><h3>Acompanhamento</h3><ol class="status-timeline">
-        <li class="is-done"><span></span><strong>Pedido enviado</strong><small>${formatDate(String(selectedOrder.createdAt || "").slice(0, 10))}</small></li>
-        <li class="${reviewed ? "is-done" : "is-current"}"><span></span><strong>Análise financeira</strong><small>${reviewed ? "Análise concluída" : "Aguardando avaliação"}</small></li>
-        <li class="${approved ? "is-done" : ""}"><span></span><strong>${approved ? "Contrato aprovado" : selectedOrder.status === "Rejeitado" ? "Pedido não aprovado" : selectedOrder.status === "Cancelado" ? "Pedido cancelado" : "Resultado da análise"}</strong><small>${selectedOrder.analysisNote ? escapeHtml(selectedOrder.analysisNote) : approved ? "Seu pedido foi aprovado." : "Aguardando decisão do agente."}</small></li>
-      </ol></article>
+      <article class="detail-panel"><h3>Dados do pedido</h3><dl class="detail-list"><div><dt>Retirada</dt><dd>${formatDate(selectedOrder.startDate)} · ${escapeHtml(selectedOrder.pickupLocation || "Local não informado")}</dd></div><div><dt>Devolução</dt><dd>${formatDate(selectedOrder.endDate)} · ${escapeHtml(selectedOrder.returnLocation || "Local não informado")}</dd></div><div><dt>Período</dt><dd>${escapeHtml(selectedOrder.days)} ${Number(selectedOrder.days) === 1 ? "diária" : "diárias"}</dd></div><div><dt>Tipo de contrato</dt><dd>${escapeHtml(selectedOrder.contractType || "Não informado")}</dd></div><div><dt>Propriedade</dt><dd>${escapeHtml(selectedOrder.propertyOption || "Não informada")}</dd></div><div><dt>Banco responsável</dt><dd>${escapeHtml(selectedOrder.approvalBankName || state.banks.find((bank) => String(bank.id) === String(approvalBankId(selectedOrder)))?.name || "Banco")}</dd></div><div><dt>Crédito bancário</dt><dd>${selectedOrder.creditRequested ? `${escapeHtml(selectedOrder.creditBankName || "Banco")} · ${formatCurrency(selectedOrder.creditAmount)}` : "Não solicitado"}</dd></div><div><dt>Profissão</dt><dd>${escapeHtml(client?.profession || "Não informada")}</dd></div><div><dt>Renda mensal</dt><dd>${formatCurrency(totalIncome(client))}</dd></div></dl>${selectedOrder.notes ? `<p class="detail-note"><strong>Observação:</strong> ${escapeHtml(selectedOrder.notes)}</p>` : ""}</article>
+      <article class="detail-panel detail-progress"><h3>Acompanhamento</h3>${renderRequestTimeline(selectedOrder)}</article>
     </div>`;
 }
 
@@ -970,7 +1034,7 @@ function showClientRecord(clientId) {
 
 function renderClients() {
   const target = document.getElementById("client-directory-list");
-  if (!target || !isStaff()) return;
+  if (!target || !isManager()) return;
   const search = document.getElementById("client-directory-search")?.value.trim().toLocaleLowerCase("pt-BR") || "";
   const accountsById = new Map(state.clientUsers.map((user) => [Number(user.id), user]));
   const clients = state.clients
@@ -1006,27 +1070,47 @@ function renderClients() {
 
 function renderAnalysis() {
   if (!document.getElementById("analysis-list") || !isStaff()) return;
-  const pending = state.requests.filter((item) => item.status === "Em análise");
-  const approved = state.requests.filter((item) => item.status === "Aprovado").length;
-  const rejected = state.requests.filter((item) => item.status === "Rejeitado").length;
-  const cancelled = state.requests.filter((item) => item.status === "Cancelado").length;
+  const isBank = state.user.role === "bank";
+  const orders = isBank
+    ? state.requests.filter((item) => isAssignedToCurrentBank(item) && (
+      item.status === "Aguardando aprovação do banco" ||
+      item.status === "Aprovado" ||
+      (item.status === "Rejeitado" && item.rejectedByRole === "bank")
+    ))
+    : state.requests;
+  const pendingAgent = orders.filter((item) => item.status === "Em análise").length;
+  const pendingBank = orders.filter((item) => item.status === "Aguardando aprovação do banco").length;
+  const approved = orders.filter((item) => item.status === "Aprovado").length;
+  const rejected = orders.filter((item) => item.status === "Rejeitado").length;
+  const cancelled = orders.filter((item) => item.status === "Cancelado").length;
+  const pending = isBank ? pendingBank : pendingAgent;
+  const banner = document.querySelector(".page-banner");
+  if (banner) {
+    banner.querySelector(".eyebrow").textContent = isBank ? "ÁREA DO BANCO" : state.user.role === "company" ? "ÁREA DA EMPRESA" : "ÁREA DO AGENTE";
+    banner.querySelector("h1").innerHTML = isBank ? "Aprovação de <span>aluguéis.</span>" : "Análise de <span>pedidos.</span>";
+    banner.querySelector("p").textContent = isBank
+      ? "Analise os pedidos autorizados pelo agente e registre a decisão final do banco."
+      : "Consulte os pedidos recebidos, avalie as solicitações e encaminhe os contratos ao banco.";
+  }
   document.getElementById("analysis-stats").innerHTML = [
-    ["Pedidos recebidos", state.requests.length, "Total de solicitações"],
-    ["Em análise", pending.length, "Aguardando avaliação"],
+    [isBank ? "Pedidos encaminhados" : "Pedidos recebidos", orders.length, isBank ? "Autorizados pelo agente ou concluídos" : "Total de solicitações"],
+    [isBank ? "Aguardando banco" : "Aguardando agente", pending, isBank ? "Prontos para decisão bancária" : "Aguardando avaliação"],
     ["Aprovados", approved, "Contratos aprovados"],
     ["Rejeitados", rejected, "Pedidos não aprovados"],
     ["Cancelados", cancelled, "Pedidos cancelados"],
   ].map(([label, count, description]) =>
     `<article class="analysis-stat"><span>${label}</span><strong>${count}</strong><small>${description}</small></article>`,
   ).join("");
-  document.getElementById("analysis-summary").innerHTML = `<span class="form-step">PEDIDOS RECEBIDOS</span><h2>${state.requests.length} ${state.requests.length === 1 ? "pedido recebido" : "pedidos recebidos"}</h2><p>${pending.length} aguardando análise · ${state.requests.length - pending.length} com status atualizado.</p>`;
+  document.getElementById("analysis-summary").innerHTML = `<span class="form-step">${isBank ? "ANÁLISE BANCÁRIA" : "ANÁLISE DE PEDIDOS"}</span><h2>${orders.length} ${orders.length === 1 ? "pedido" : "pedidos"} ${isBank ? "direcionado" : "recebido"}${orders.length === 1 ? "" : "s"}</h2><p>${pending} aguardando ${isBank ? "decisão do banco" : "avaliação do agente"} · ${orders.length - pending} com etapa atualizada.</p>`;
   const target = document.getElementById("analysis-list");
-  const statusOrder = { "Em análise": 0, Aprovado: 1, Rejeitado: 2, Cancelado: 3 };
-  const orders = [...state.requests].sort((a, b) =>
+  const statusOrder = isBank
+    ? { "Aguardando aprovação do banco": 0, "Em análise": 1, Aprovado: 2, Rejeitado: 3, Cancelado: 4 }
+    : { "Em análise": 0, "Aguardando aprovação do banco": 1, Aprovado: 2, Rejeitado: 3, Cancelado: 4 };
+  const sortedOrders = [...orders].sort((a, b) =>
     (statusOrder[a.status] ?? 4) - (statusOrder[b.status] ?? 4) ||
     String(b.createdAt || "").localeCompare(String(a.createdAt || "")),
   );
-  target.innerHTML = orders.length ? orders.map((order) => {
+  target.innerHTML = sortedOrders.length ? sortedOrders.map((order) => {
     const client = clientForRequest(order);
     const income = totalIncome(client) || Number(order.monthlyIncome) || 0;
     const ratio = income ? (Number(order.totalValue) / income) * 100 : null;
@@ -1034,6 +1118,23 @@ function renderAnalysis() {
     const incomeSources = employers.length
       ? `<ul class="analysis-employers">${employers.map((employer) => `<li><span>${escapeHtml(employer.name)}</span><strong>${formatCurrency(employer.monthlyIncome)}/mês</strong></li>`).join("")}</ul>`
       : `<span class="text-muted">Renda não informada</span>`;
+    const canReview = isBank
+      ? order.status === "Aguardando aprovação do banco" && isAssignedToCurrentBank(order)
+      : order.status === "Em análise";
+    const agentDecision = order.agentStatus || (
+      order.status === "Em análise" ? "Aguardando análise" :
+        order.status === "Rejeitado" && order.rejectedByRole !== "bank" ? "Rejeitado" : "Autorizado"
+    );
+    const bankDecision = order.bankStatus || (
+      order.status === "Aprovado" ? "Aprovado" :
+        order.status === "Rejeitado" && order.rejectedByRole === "bank" ? "Rejeitado" :
+          order.status === "Aguardando aprovação do banco" ? "Aguardando decisão" : "Pendente"
+    );
+    const assignedBankName = order.approvalBankName || order.creditBankName ||
+      state.banks.find((bank) => String(bank.id) === String(approvalBankId(order)))?.name || "";
+    const agentHistory = order.agentNote ||
+      (agentDecision === "Rejeitado" ? order.analysisNote : agentDecision === "Autorizado" ? `Autorizado${order.agentReviewedBy ? ` por ${order.agentReviewedBy}` : ""}.` : agentDecision);
+    const reviewHistory = `<p class="analysis-note"><strong>Agente:</strong> ${escapeHtml(agentHistory)}<br /><strong>Banco:</strong> ${escapeHtml(order.bankNote || (bankDecision === "Aprovado" ? `Aluguel aceito${order.bankReviewedBy ? ` por ${order.bankReviewedBy}` : ""}.` : bankDecision === "Rejeitado" ? order.analysisNote || "Aluguel não aceito." : `${bankDecision}${assignedBankName ? ` · ${assignedBankName}` : ""}`))}</p>`;
     return `<article class="analysis-card">
       <div class="analysis-top"><div><h3>${escapeHtml(order.clientName)} · ${escapeHtml(order.vehicleName)}</h3><p>Pedido #${escapeHtml(order.id)} · Enviado em ${formatDate(String(order.createdAt || "").slice(0, 10))}</p></div>${statusBadge(order.status)}</div>
       <div class="analysis-metrics">
@@ -1044,18 +1145,18 @@ function renderAnalysis() {
       </div>
       <div class="analysis-client-summary"><div><span>Profissão</span><strong>${escapeHtml(client?.profession || "Não informada")}</strong></div><div><span>Fontes de renda · até 3</span>${incomeSources}</div></div>
       <div class="analysis-client-actions"><button class="button button-outline button-small" type="button" data-view-client="${escapeHtml(order.id)}">Ver cadastro completo <span aria-hidden="true">→</span></button></div>
-      <p class="analysis-note"><strong>Contrato:</strong> ${escapeHtml(order.contractType || "Não informado")} · <strong>Propriedade:</strong> ${escapeHtml(order.propertyOption || "Não informada")}<br /><strong>Retirada:</strong> ${escapeHtml(order.pickupLocation || "Local não informado")} · <strong>Devolução:</strong> ${escapeHtml(order.returnLocation || "Local não informado")}${order.creditRequested ? `<br /><strong>Crédito bancário solicitado:</strong> ${escapeHtml(order.creditBankName || "Banco")} · ${formatCurrency(order.creditAmount)}` : ""}${order.notes ? `<br /><strong>Observação:</strong> ${escapeHtml(order.notes)}` : ""}</p>
-      ${order.status === "Em análise"
+      <p class="analysis-note"><strong>Contrato:</strong> ${escapeHtml(order.contractType || "Não informado")} · <strong>Propriedade:</strong> ${escapeHtml(order.propertyOption || "Não informada")}<br /><strong>Retirada:</strong> ${escapeHtml(order.pickupLocation || "Local não informado")} · <strong>Devolução:</strong> ${escapeHtml(order.returnLocation || "Local não informado")}<br /><strong>Banco responsável:</strong> ${escapeHtml(order.approvalBankName || state.banks.find((bank) => String(bank.id) === String(approvalBankId(order)))?.name || "Banco")}${order.creditRequested ? `<br /><strong>Crédito solicitado:</strong> ${formatCurrency(order.creditAmount)}` : ""}${order.notes ? `<br /><strong>Observação:</strong> ${escapeHtml(order.notes)}` : ""}</p>
+      ${canReview
         ? state.rejectingRequestId === String(order.id)
-          ? `<div class="analysis-rejection-form" data-rejection-form="${escapeHtml(order.id)}"><label class="form-field"><span>Motivo da rejeição <b>*</b></span><textarea name="rejection-reason" data-rejection-reason required maxlength="500" rows="3" placeholder="Explique ao cliente por que o pedido não foi aprovado.">${escapeHtml(state.rejectionDraft)}</textarea></label><div class="analysis-actions"><button class="button button-outline" type="button" data-cancel-rejection>Cancelar</button><button class="button button-danger" type="button" data-submit-rejection>Confirmar rejeição</button></div></div>`
-          : `<div class="analysis-actions"><button class="button button-danger" type="button" data-start-rejection="${escapeHtml(order.id)}">Rejeitar pedido</button><button class="button button-primary" type="button" data-review-order="${escapeHtml(order.id)}" data-review-status="Aprovado">Aprovar contrato</button></div>`
-        : `<p class="analysis-note"><strong>Parecer:</strong> ${escapeHtml(order.analysisNote || `Pedido ${String(order.status).toLocaleLowerCase("pt-BR")}.`)}${order.reviewedBy ? ` · Avaliado por ${escapeHtml(order.reviewedBy)}` : ""}</p>`}
+          ? `<div class="analysis-rejection-form" data-rejection-form="${escapeHtml(order.id)}"><label class="form-field"><span>Motivo da rejeição <b>*</b></span><textarea name="rejection-reason" data-rejection-reason required maxlength="500" rows="3" placeholder="${isBank ? "Explique ao cliente por que o banco não aceitou o aluguel." : "Explique ao cliente por que o pedido não foi autorizado."}">${escapeHtml(state.rejectionDraft)}</textarea></label><div class="analysis-actions"><button class="button button-outline" type="button" data-cancel-rejection>Cancelar</button><button class="button button-danger" type="button" data-submit-rejection>Confirmar rejeição</button></div></div>`
+          : `<div class="analysis-actions"><button class="button button-danger" type="button" data-start-rejection="${escapeHtml(order.id)}">Rejeitar pedido</button><button class="button button-primary" type="button" data-review-order="${escapeHtml(order.id)}" data-review-status="Aprovado">${isBank ? "Aceitar aluguel" : "Autorizar e enviar ao banco"}</button></div>`
+        : reviewHistory}
     </article>`;
-  }).join("") : `<div class="empty-state"><strong>Nenhum pedido recebido</strong>Os pedidos enviados pelos clientes aparecerão aqui.</div>`;
+  }).join("") : `<div class="empty-state"><strong>${isBank ? "Nenhum pedido encaminhado" : "Nenhum pedido recebido"}</strong>${isBank ? "Os pedidos autorizados pelos agentes e destinados a este banco aparecerão aqui." : "Os pedidos enviados pelos clientes aparecerão aqui."}</div>`;
 }
 
 function renderFleet() {
-  if (!document.getElementById("fleet-list") || !isStaff()) return;
+  if (!document.getElementById("fleet-list") || !isManager()) return;
   const target = document.getElementById("fleet-list");
   target.innerHTML = state.vehicles.length ? state.vehicles.map((vehicle) =>
     `<article class="fleet-row">
@@ -1511,6 +1612,8 @@ async function handleRequestSubmit(event) {
     contractType: document.getElementById("request-contract-type").value,
     propertyOption: document.getElementById("request-property-option").value,
     creditRequested: document.getElementById("request-credit-requested").checked,
+    approvalBankId: document.getElementById("request-credit-bank").value,
+    approvalBankName: state.banks.find((bank) => String(bank.id) === document.getElementById("request-credit-bank").value)?.name || "",
     creditBankId: document.getElementById("request-credit-requested").checked
       ? document.getElementById("request-credit-bank").value
       : "",
@@ -1522,6 +1625,16 @@ async function handleRequestSubmit(event) {
       : 0,
     notes: document.getElementById("request-notes").value.trim(),
     status: "Em análise",
+    agentStatus: "Pendente",
+    agentReviewedBy: "",
+    agentReviewedAt: "",
+    agentNote: "",
+    bankStatus: "Pendente",
+    bankReviewedBy: "",
+    bankReviewedAt: "",
+    bankNote: "",
+    rejectedByRole: "",
+    analysisNote: "",
     updatedAt: new Date().toISOString(),
   };
   try {
@@ -1569,33 +1682,62 @@ async function cancelRequest(id) {
 async function reviewRequest(id, status, rejectionReason = "") {
   if (!isStaff() || !["Aprovado", "Rejeitado"].includes(status)) return;
   const order = state.requests.find((item) => Number(item.id) === Number(id));
-  if (!order || order.status !== "Em análise") return;
+  const isBank = state.user.role === "bank";
+  if (!order || (isBank
+    ? order.status !== "Aguardando aprovação do banco" || !isAssignedToCurrentBank(order)
+    : order.status !== "Em análise")) return;
   const reason = rejectionReason.trim();
   if (status === "Rejeitado" && !reason) {
     toast("Informe o motivo da rejeição para continuar.", true);
     return;
   }
-  const analysisNote = status === "Aprovado"
-    ? "Renda e valor do pedido avaliados. Contrato aprovado."
-    : reason;
-  try {
-    await api.patch(`/requests/${id}`, {
+  if (!isBank && status === "Aprovado" && !approvalBankId(order)) {
+    toast("Não há um banco responsável definido para este pedido.", true);
+    return;
+  }
+  const reviewedAt = new Date().toISOString();
+  const update = isBank
+    ? {
       status,
-      reviewedBy: state.user.name,
-      reviewedAt: new Date().toISOString(),
-      analysisNote,
-    });
+      bankStatus: status,
+      bankReviewedBy: state.user.name,
+      bankReviewedAt: reviewedAt,
+      bankNote: status === "Aprovado" ? "Aluguel aceito pelo banco." : reason,
+      rejectedByRole: status === "Rejeitado" ? "bank" : "",
+      analysisNote: status === "Aprovado" ? "Aluguel autorizado pelo agente e aceito pelo banco." : reason,
+      updatedAt: reviewedAt,
+    }
+    : {
+      status: status === "Aprovado" ? "Aguardando aprovação do banco" : "Rejeitado",
+      ...(status === "Aprovado" ? {
+        approvalBankId: approvalBankId(order),
+        approvalBankName: order.approvalBankName ||
+          state.banks.find((bank) => String(bank.id) === String(approvalBankId(order)))?.name || "",
+      } : {}),
+      agentStatus: status,
+      agentReviewedBy: state.user.name,
+      agentReviewedAt: reviewedAt,
+      agentNote: status === "Aprovado" ? "Aluguel autorizado pelo agente." : reason,
+      bankStatus: status === "Aprovado" ? "Pendente" : "Não iniciada",
+      rejectedByRole: status === "Rejeitado" ? "agent" : "",
+      analysisNote: status === "Aprovado" ? "Autorizado pelo agente. Aguardando aprovação do banco." : reason,
+      updatedAt: reviewedAt,
+    };
+  try {
+    await api.patch(`/requests/${id}`, update);
     state.rejectingRequestId = null;
     state.rejectionDraft = "";
     await loadData();
-    toast(`Pedido ${status.toLocaleLowerCase("pt-BR")}.`);
+    toast(isBank
+      ? status === "Aprovado" ? "Aluguel aceito pelo banco." : "Pedido rejeitado pelo banco."
+      : status === "Aprovado" ? "Pedido autorizado e encaminhado ao banco." : "Pedido rejeitado pelo agente.");
   } catch (error) {
     reportError(error);
   }
 }
 
 function openVehicleDialog(vehicle = null) {
-  if (!isStaff()) return;
+  if (!isManager()) return;
   state.editingVehicleId = vehicle?.id || null;
   state.pendingVehiclePhotoDataUrl = null;
   state.vehiclePhotoProcessing = false;
@@ -1675,7 +1817,7 @@ async function handleVehicleSubmit(event) {
 }
 
 async function deleteVehicle(id) {
-  if (!isStaff()) return;
+  if (!isManager()) return;
   const vehicle = state.vehicles.find((item) => Number(item.id) === Number(id));
   if (!vehicle || !window.confirm(`Excluir ${vehicle.brand} ${vehicle.model} do catálogo?`)) return;
   try {
@@ -1700,8 +1842,8 @@ async function deleteProfile() {
 }
 
 async function deleteClientRecord(clientId) {
-  if (!isStaff()) {
-    toast("Esta ação é exclusiva para agentes, empresas e bancos.", true);
+  if (!isManager()) {
+    toast("Esta ação é exclusiva para agentes e empresas.", true);
     return;
   }
   const client = state.clients.find((item) => Number(item.id) === Number(clientId));
@@ -1959,8 +2101,12 @@ async function initialize() {
     openModal("auth-modal", "login");
     return;
   }
-  if (["analise", "clientes", "frota"].includes(state.currentPage) && !isStaff()) {
+  if (state.currentPage === "analise" && !isStaff()) {
     routeTo("inicio");
+    return;
+  }
+  if (["clientes", "frota"].includes(state.currentPage) && !isManager()) {
+    routeTo(state.user?.role === "bank" ? "analise" : "inicio");
     return;
   }
   if (state.currentPage === "cadastro" && isStaff()) {

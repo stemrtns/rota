@@ -31,10 +31,11 @@ O projeto foi desenvolvido para o Laboratório 02 da PUC Minas, com base nos req
 - **Fotos dos veículos:** fotos de referência com créditos e licenças; visitantes podem consultá-las sem login. Há 19 fotos locais e um placeholder para o Nissan Kicks.
 - **Contas por perfil:** cadastro e login demonstrativos para clientes, agentes, empresas e bancos.
 - **Cadastro do cliente:** dados pessoais, endereço, município, profissão, até três fontes de renda e dados/fotos da frente e do verso da CNH.
-- **Solicitações:** fluxo em cinco etapas — veículo, datas e locais, contrato e propriedade, crédito opcional e revisão. O cliente pode consultar, editar ou cancelar pedidos que ainda estejam em análise.
+- **Solicitações:** fluxo em cinco etapas — veículo, datas e locais, contrato e propriedade, banco responsável (com crédito opcional) e revisão. O cliente pode consultar, editar ou cancelar pedidos que ainda estejam em análise pelo agente.
 - **Continuidade do fluxo:** se o cliente selecionar um veículo sem ter completado o cadastro, o sistema preserva o veículo escolhido e volta para a solicitação após salvar o perfil.
-- **Pedidos e contratos:** lista e detalhes de solicitações com status e acompanhamento para o cliente.
-- **Análise financeira:** painel com métricas e pedidos por status. Agentes, empresas e bancos podem aprovar ou rejeitar pedidos; para rejeitar, devem informar o motivo, que fica visível ao cliente.
+- **Pedidos e contratos:** lista e detalhes de solicitações com status e acompanhamento das etapas de análise pelo agente e pelo banco.
+- **Análise em duas etapas:** agentes e empresas autorizam ou rejeitam o pedido; ao autorizar, encaminham-no ao banco responsável. O banco pode aceitar ou rejeitar o aluguel, registrando a decisão final. O motivo de rejeição é obrigatório e fica visível ao cliente.
+- **Painel bancário:** contas de banco acessam somente os pedidos destinados ao seu banco e podem decidir os que já foram autorizados pelo agente. A gestão de clientes e da frota fica disponível para agentes e empresas.
 - **Gestão de clientes:** pesquisa, visualização de dados e CNH e exclusão do cadastro sem apagar a conta ou os pedidos associados.
 - **Gestão da frota:** cadastro, edição e remoção de veículos, incluindo upload e substituição de fotos.
 - **Disponibilidade:** impede solicitações para veículos indisponíveis ou com conflito de datas.
@@ -105,6 +106,8 @@ A API base é `http://localhost:3000`.
 O `db.json` inicial inclui as coleções `users`, `clients`, `vehicles` e `requests`, com contas de demonstração, seis cadastros de clientes, 20 veículos e pedidos de exemplo. Os dados são compartilhados localmente pelo JSON Server.
 
 Os registros de clientes guardam dados pessoais, rendimentos e campos da CNH. As imagens da CNH são convertidas para JPEG no navegador e limitadas a aproximadamente 600 KB cada. As fotos enviadas para veículos também são otimizadas e guardadas como JPEG no campo `photoDataUrl`.
+
+O fluxo do pedido usa os status `Em análise` (agente), `Aguardando aprovação do banco` e, após a decisão bancária, `Aprovado` ou `Rejeitado`. Cada etapa mantém seu responsável, data e parecer para exibição no acompanhamento do cliente.
 
 > **Privacidade:** use somente dados e imagens fictícios. O JSON Server não oferece autenticação ou controle real de acesso à API; não publique este servidor nem armazene documentos pessoais reais.
 

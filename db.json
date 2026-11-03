@@ -706,9 +706,16 @@
       "creditRequested": false,
       "creditAmount": 0,
       "notes": "",
-      "status": "Em análise",
+      "status": "Aguardando aprovação do banco",
       "createdAt": "2026-10-31T12:15:00.000Z",
-      "analysisNote": ""
+      "analysisNote": "Autorizado pelo agente. Aguardando aprovação do banco.",
+      "agentStatus": "Aprovado",
+      "agentReviewedBy": "Marcos Lima",
+      "agentReviewedAt": "2026-11-03T08:42:41.810Z",
+      "agentNote": "Aluguel autorizado pelo agente.",
+      "bankStatus": "Pendente",
+      "rejectedByRole": "",
+      "updatedAt": "2026-11-03T08:42:41.810Z"
     },
     {
       "id": 7,

@@ -780,7 +780,9 @@ body { color: #242424; font-size: 15px; }
 .analysis-note { font-size: 11px; }
 .analysis-actions .button { min-height: 40px; font-size: 12px; }
 .status-pill.status-em-analise { background: #fff1e0; color: #a56610; }
+.status-pill.status-aguardando-aprovacao-do-banco { background: #edf2ff; color: #465e9b; white-space: normal; }
 .status-pill.status-rejeitado, .status-pill.status-cancelado { background: #fff0ed; color: #b94d42; }
+.status-timeline li.is-rejected > span { border-color: #b94d42; background: #b94d42; box-shadow: inset 0 0 0 3px #fff; }
 
 @media (max-width: 991px) {
   .hero { grid-template-columns: minmax(0, 1fr) minmax(160px, .8fr) 250px; gap: 12px; padding: 23px; }
