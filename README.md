@@ -13,6 +13,7 @@ Aplicação acadêmica para consultar veículos, solicitar aluguéis e acompanha
 - [Como executar](#como-executar)
 - [Contas de demonstração](#contas-de-demonstração)
 - [API e dados](#api-e-dados)
+- [Modelagem do sistema](#modelagem-do-sistema)
 - [Estrutura do projeto](#estrutura-do-projeto)
 - [Validação](#validação)
 - [Referências e limitações](#referências-e-limitações)
@@ -111,6 +112,12 @@ O fluxo do pedido usa os status `Em análise` (agente), `Aguardando aprovação 
 
 > **Privacidade:** use somente dados e imagens fictícios. O JSON Server não oferece autenticação ou controle real de acesso à API; não publique este servidor nem armazene documentos pessoais reais.
 
+## Modelagem do sistema
+
+Os artefatos de modelagem e seu histórico de revisão estão em [`docs/modelagem/`](./docs/modelagem/README.md): casos de uso, histórias do usuário, classes, pacotes (visão lógica) e componentes. Cada diagrama registra a versão inicial reconstruída a partir do enunciado e a revisão alinhada ao código e ao `db.json`.
+
+Não havia versões anteriores de diagramas no repositório. A revisão atual reflete a implementação observada; feedback específico de aula deve ser incorporado em uma nova versão quando estiver disponível. A área de clientes permite consultar e excluir cadastros, mas não criar nem editar o cadastro de terceiros.
+
 ## Estrutura do projeto
 
 ```text
@@ -136,6 +143,8 @@ O fluxo do pedido usa os status `Em análise` (agente), `Aguardando aprovação 
 │   ├── vehicle-photos.json        # Caminhos e metadados das fotos
 │   ├── VEHICLE-IMAGE-CREDITS.md  # Créditos e licenças das fotos
 │   └── *-LICENSE                 # Atribuições/licenças das bases de dados
+├── docs/
+│   └── modelagem/                # Diagramas e versões revisadas
 ├── images/
 │   ├── hero-car.jpg              # Foto do banner inicial
 │   └── vehicles/                 # Fotos locais dos veículos
