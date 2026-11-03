@@ -1,127 +1,175 @@
 # Rota — Sistema de Aluguel de Carros
 
-Aplicação acadêmica de aluguel de carros com páginas HTML separadas, CSS, JavaScript, Bootstrap 5 e JSON Server.
+Aplicação acadêmica para consultar veículos, solicitar aluguéis e acompanhar a análise de contratos. O front-end usa HTML, CSS e JavaScript; o JSON Server fornece uma API REST simulada.
 
-## Executar localmente
+> **Projeto:** Laboratório 02 — PUC Minas
+> **Situação:** aplicação acadêmica em desenvolvimento; não destinada a uso comercial.
 
-1. Instale o Node.js (versão 18 ou superior).
-2. Na pasta do projeto, instale as dependências:
+## Índice
 
-   ```bash
-   npm install
-   ```
+- [Sobre o projeto](#sobre-o-projeto)
+- [Funcionalidades](#funcionalidades)
+- [Tecnologias](#tecnologias)
+- [Como executar](#como-executar)
+- [Contas de demonstração](#contas-de-demonstração)
+- [API e dados](#api-e-dados)
+- [Estrutura do projeto](#estrutura-do-projeto)
+- [Validação](#validação)
+- [Referências e limitações](#referências-e-limitações)
+- [Licença](#licença)
 
-3. Inicie o site e a API:
+## Sobre o projeto
 
-   ```bash
-   npm start
-   ```
+O Rota reúne em uma única interface a consulta pública de veículos e o fluxo de aluguel. Visitantes podem pesquisar o catálogo e consultar fotos de referência. Clientes cadastrados podem preencher o perfil, informar fontes de renda, solicitar veículos e acompanhar os pedidos. Agentes, empresas e bancos podem consultar cadastros, avaliar solicitações e administrar a frota.
 
-4. Acesse [http://localhost:3000](http://localhost:3000). A API REST também fica disponível na mesma origem.
+O projeto foi desenvolvido para o Laboratório 02 da PUC Minas, com base nos requisitos e wireframes fornecidos. Os dados iniciais são ilustrativos e ficam em `db.json`.
 
-O JSON Server persiste as alterações diretamente em `db.json`.
+## Funcionalidades
+
+- **Página inicial:** apresentação do serviço, veículos disponíveis e explicação do fluxo em cinco etapas.
+- **Catálogo público:** pesquisa, filtros por categoria, estado e município, ordenação e 20 versões de veículos comercializadas no Brasil.
+- **Fotos dos veículos:** fotos de referência com créditos e licenças; visitantes podem consultá-las sem login. Há 19 fotos locais e um placeholder para o Nissan Kicks.
+- **Contas por perfil:** cadastro e login demonstrativos para clientes, agentes, empresas e bancos.
+- **Cadastro do cliente:** dados pessoais, endereço, município, profissão, até três fontes de renda e dados/fotos da frente e do verso da CNH.
+- **Solicitações:** fluxo em cinco etapas — veículo, datas e locais, contrato e propriedade, crédito opcional e revisão. O cliente pode consultar, editar ou cancelar pedidos que ainda estejam em análise.
+- **Continuidade do fluxo:** se o cliente selecionar um veículo sem ter completado o cadastro, o sistema preserva o veículo escolhido e volta para a solicitação após salvar o perfil.
+- **Pedidos e contratos:** lista e detalhes de solicitações com status e acompanhamento para o cliente.
+- **Análise financeira:** painel com métricas e pedidos por status. Agentes, empresas e bancos podem aprovar ou rejeitar pedidos; para rejeitar, devem informar o motivo, que fica visível ao cliente.
+- **Gestão de clientes:** pesquisa, visualização de dados e CNH e exclusão do cadastro sem apagar a conta ou os pedidos associados.
+- **Gestão da frota:** cadastro, edição e remoção de veículos, incluindo upload e substituição de fotos.
+- **Disponibilidade:** impede solicitações para veículos indisponíveis ou com conflito de datas.
+- **Atualização de dados:** Fetch API consulta o JSON Server; as telas atualizam os dados periodicamente.
+- **Interface responsiva:** navegação adaptada para telas de desktop e celular, com identidade visual própria e componentes/utilitários do Bootstrap 5.
+
+## Tecnologias
+
+| Camada | Tecnologias |
+| --- | --- |
+| Interface | HTML5, CSS3 e JavaScript com módulos ES |
+| Componentes e utilitários visuais | Bootstrap 5.3.3, carregado por CDN |
+| Comunicação com a API | Fetch API |
+| API e persistência de demonstração | JSON Server 0.17.4 e `db.json` |
+| Imagens e fontes | Fotos locais e Unsplash; Google Fonts e Bootstrap via CDN |
+
+O Bootstrap é incluído nas páginas HTML e usado, por exemplo, nas classes `container`, `row`, `g-4`, `form-select` e `visually-hidden`. A maior parte do estilo da interface é definida em `styles.css`.
+
+## Como executar
+
+### Pré-requisitos
+
+- Node.js 18 ou superior e npm.
+- Conexão com a internet para carregar Bootstrap, Google Fonts e a foto externa do banner.
+
+### Instalação e inicialização
+
+No terminal, entre na pasta do projeto e execute:
+
+```bash
+npm install
+npm start
+```
+
+Abra [http://localhost:3000](http://localhost:3000). O JSON Server disponibiliza o site e a API na mesma origem, monitora `db.json` e persiste nele as alterações feitas pela aplicação.
+
+A URL base da API também está definida em `api.js`. Se a porta `3000` estiver ocupada, encerre o processo que a utiliza antes de iniciar o projeto.
 
 ## Contas de demonstração
 
-| Perfil | E-mail | Senha |
-| --- | --- | --- |
-| Cliente | ana@rota.com | rota123 |
-| Agente | agente@rota.com | rota123 |
-| Empresa | empresa@rota.com | rota123 |
-| Banco | banco@rota.com | rota123 |
-| Cliente | bruno@rota.com | rota123 |
-| Cliente | carolina@rota.com | rota123 |
-| Cliente | diego@rota.com | rota123 |
-| Cliente | eduarda@rota.com | rota123 |
-| Cliente | felipe@rota.com | rota123 |
+Todas as contas de exemplo usam a senha `rota123`.
 
-Novos cadastros criam uma conta de cliente; os dados pessoais, endereço, estado, município, profissão e até três fontes de renda são preenchidos em **Meu cadastro**.
-O banco inicial inclui seis cadastros de clientes e dez pedidos ilustrativos. Os cinco clientes adicionais usam dados fictícios e não incluem documentos reais.
+| Perfil | E-mail |
+| --- | --- |
+| Cliente | `ana@rota.com` |
+| Cliente | `bruno@rota.com` |
+| Cliente | `carolina@rota.com` |
+| Cliente | `diego@rota.com` |
+| Cliente | `eduarda@rota.com` |
+| Cliente | `felipe@rota.com` |
+| Agente | `agente@rota.com` |
+| Empresa | `empresa@rota.com` |
+| Banco | `banco@rota.com` |
 
-## Recursos implementados
+Novas contas criadas pela interface recebem o perfil de cliente. Para solicitar um aluguel, é necessário entrar e completar os dados do perfil, incluindo CNH e ao menos uma fonte de renda.
 
-- Interface reorganizada para acompanhar a identidade visual dos wireframes: painel escuro de destaque, acesso integrado, catálogo de veículos e painel detalhado de contratos.
-- Painel do agente com acesso de leitura ao cadastro completo do cliente associado a cada pedido.
-- Área restrita de cadastro de clientes, com pesquisa, visualização de dados/CNH e exclusão do cadastro sem apagar a conta ou os pedidos.
-- Cadastro do cliente com número, categoria e validade da CNH, além de fotos obrigatórias da frente e do verso.
-- Página inicial com carro em destaque sobre fundo escuro e cinco etapas numeradas em círculos; veículos disponíveis aparecem antes da seção explicativa.
-- Catálogo público com 20 versões de veículos comercializadas no Brasil; visitantes podem ver fotos de referência e seus créditos sem criar conta.
-- Dezenove veículos têm fotos locais reutilizáveis do Wikimedia Commons, com crédito e licença registrados; o Nissan Kicks exibe um placeholder porque não foi encontrada uma foto livre da geração cadastrada.
-- As fotos são ilustrativas e podem variar em ano, versão, motorização ou mercado. Os veículos estão orientados para a esquerda, e o modal mantém o crédito, a fonte e a licença da foto.
-- Catálogo pesquisável e ordenável, com valores e disponibilidade atualizados pela API.
-- Busca de veículos por estado e município, com municípios carregados localmente e dados de cidade/UF salvos em cada veículo da frota.
-- Seleção de município no endereço do cliente; locais de retirada e devolução sugerem municípios brasileiros.
-- Filtros de categoria no catálogo e especificações completas nos cards: matrícula, ano, marca, modelo, placa, câmbio e combustível.
-- Sugestões de marca e modelo no cadastro da frota, usando a base brasileira convertida para JSON; os campos continuam aceitando texto livre.
-- Cadastro e edição de dados do cliente, incluindo até três rendimentos; remoção do cadastro de cliente.
-- Solicitação, consulta, edição e cancelamento de pedidos em cartões visuais, com painel detalhado do contrato.
-- Solicitação em cinco etapas: veículo, datas e locais, contrato/propriedade, crédito bancário opcional e revisão.
-- Análise financeira de pedidos por agentes, empresas e bancos, com renda e até três fontes empregadoras visíveis e ações para aprovar ou rejeitar.
-- Agentes devem informar o motivo ao rejeitar um pedido; o parecer fica visível ao cliente no acompanhamento e nos detalhes.
-- Painel de análise com todos os pedidos recebidos, separados por status, e ações de aprovação/rejeição apenas para pedidos em análise.
-- Cadastro, edição e remoção de veículos com município de operação, matrícula, ano, marca, modelo, placa, categoria, câmbio, combustível, proprietário e upload/substituição de foto.
-- Bloqueio de pedidos para veículos indisponíveis ou com reservas ativas nas mesmas datas.
-- Atualização periódica dos pedidos e do catálogo via Fetch API para refletir mudanças feitas por outros usuários.
-- Navegação responsiva e acesso às áreas de acordo com o perfil conectado.
-- Páginas independentes para início, veículos, cadastro, solicitação, pedidos, análise e gestão da frota.
+## API e dados
 
-## Endpoints JSON Server
+A API base é `http://localhost:3000`.
 
-- `GET /users`, `POST /users`, `PATCH /users/:id`, `DELETE /users/:id`
-- `GET /clients`, `POST /clients`, `PATCH /clients/:id`, `DELETE /clients/:id`
-- `GET /vehicles`, `POST /vehicles`, `PATCH /vehicles/:id`, `DELETE /vehicles/:id`
-- `GET /requests`, `POST /requests`, `PATCH /requests/:id`
+| Recurso | Operações utilizadas |
+| --- | --- |
+| `/users` | `GET`, `POST`, `PATCH`, `DELETE` |
+| `/clients` | `GET`, `POST`, `PATCH`, `DELETE` |
+| `/vehicles` | `GET`, `POST`, `PATCH`, `DELETE` |
+| `/requests` | `GET`, `POST`, `PATCH` |
 
-Os veículos em `db.json` incluem `category`, `transmission`, `fuel`, `cityIbge`, `city`, `state` e `stateName`. Os clientes também guardam município e estado selecionados. Os pedidos guardam os locais de retirada/devolução, tipo de contrato, condição de propriedade e, se solicitado, banco e valor de crédito. A tela do catálogo combina município, estado, categorias, pesquisa e ordenação sem sair da API JSON Server.
+O `db.json` inicial inclui as coleções `users`, `clients`, `vehicles` e `requests`, com contas de demonstração, seis cadastros de clientes, 20 veículos e pedidos de exemplo. Os dados são compartilhados localmente pelo JSON Server.
+
+Os registros de clientes guardam dados pessoais, rendimentos e campos da CNH. As imagens da CNH são convertidas para JPEG no navegador e limitadas a aproximadamente 600 KB cada. As fotos enviadas para veículos também são otimizadas e guardadas como JPEG no campo `photoDataUrl`.
+
+> **Privacidade:** use somente dados e imagens fictícios. O JSON Server não oferece autenticação ou controle real de acesso à API; não publique este servidor nem armazene documentos pessoais reais.
 
 ## Estrutura do projeto
 
 ```text
 .
-├── index.html                  # Página inicial
-├── veiculos.html               # Catálogo público e galeria
-├── cadastro.html               # Cadastro do cliente
-├── clientes.html               # Consulta e gestão de cadastros pelo agente
-├── solicitar.html              # Formulário de solicitação
-├── pedidos.html                # Pedidos e contratos do cliente
-├── analise.html                # Painel de análise financeira
-├── frota.html                  # Gestão de veículos
+├── index.html                    # Página inicial
+├── veiculos.html                 # Catálogo público e consulta de fotos
+├── cadastro.html                 # Perfil do cliente e CNH
+├── clientes.html                 # Gestão de cadastros pelo agente
+├── solicitar.html                # Formulário de solicitação em etapas
+├── pedidos.html                  # Pedidos e contratos do cliente
+├── analise.html                  # Painel de análise financeira
+├── frota.html                    # Gestão de veículos
 ├── partials/
-│   ├── header.html             # Cabeçalho e navegação compartilhados
-│   ├── footer.html             # Rodapé compartilhado
-│   └── modals.html             # Login, cadastro e galerias
-├── api.js                      # Cliente HTTP para a API JSON Server
-├── app.js                      # Estado, renderização e regras de interação
-├── db.json                     # Dados iniciais e persistência local
+│   ├── header.html               # Cabeçalho e navegação compartilhados
+│   ├── footer.html               # Rodapé compartilhado
+│   └── modals.html               # Modais de autenticação e fotos
+├── api.js                        # Cliente Fetch para a API
+├── app.js                        # Estado, renderização e regras do sistema
+├── db.json                       # Dados iniciais e persistência local
 ├── data/
-│   ├── municipalities.json     # 5.571 municípios brasileiros e suas UFs
-│   ├── municipios-brasileiros-LICENSE # Licença da base de municípios
-│   ├── brazilian-cars.json      # Marcas e modelos para sugestões no cadastro da frota
-│   ├── brazilian-cars-LICENSE   # Atribuição e licença da base de referência
-│   ├── vehicle-photos.json      # Fotos e metadados de atribuição da frota
-│   └── VEHICLE-IMAGE-CREDITS.md # Créditos e licenças de cada foto
+│   ├── municipalities.json       # Municípios brasileiros e códigos IBGE
+│   ├── brazilian-cars.json        # Sugestões de marcas e modelos
+│   ├── vehicle-photos.json        # Caminhos e metadados das fotos
+│   ├── VEHICLE-IMAGE-CREDITS.md  # Créditos e licenças das fotos
+│   └── *-LICENSE                 # Atribuições/licenças das bases de dados
 ├── images/
-│   ├── hero-car.jpg              # Foto do Unsplash para o banner inicial
-│   └── vehicles/                # Fotos locais otimizadas da frota
-├── styles.css                  # Estilos e comportamento responsivo
-├── package.json                # Dependências e comando de inicialização
-└── package-lock.json           # Versões resolvidas das dependências
+│   ├── hero-car.jpg              # Foto do banner inicial
+│   └── vehicles/                 # Fotos locais dos veículos
+├── styles.css                    # Estilos responsivos do projeto
+├── package.json                  # Dependências e comando de inicialização
+├── package-lock.json             # Versões resolvidas das dependências
+└── Aluguel de Carros (wireframe)/ # Wireframes de referência em PDF
 ```
 
-O front-end é estático e não requer etapa de build. Cada tela tem seu próprio arquivo HTML; cabeçalho, rodapé e modais ficam em `partials/` e são carregados pelo JavaScript. `app.js` inicializa os componentes presentes na página atual, enquanto `api.js` centraliza as chamadas Fetch para o JSON Server. Fotos enviadas na gestão da frota são otimizadas no navegador e salvas como JPEG no campo `photoDataUrl` do veículo em `db.json`; cada imagem armazenada fica limitada a aproximadamente 1,2 MB.
+O front-end é estático e não requer etapa de build. Cada tela tem seu próprio arquivo HTML. `app.js` carrega o cabeçalho, o rodapé e os modais de `partials/`; `api.js` centraliza as chamadas Fetch para o JSON Server.
 
-Os dados da CNH e as fotos da frente e do verso são salvos no registro do cliente em `db.json`; cada imagem é convertida para JPEG e limitada a aproximadamente 600 KB. A tela do agente permite consultar esses dados e excluir somente o cadastro, mantendo a conta e o histórico de pedidos. O JSON Server deste projeto acadêmico não oferece autenticação nem controle de acesso à API: use imagens de teste, não documentos reais, e não publique o servidor com dados pessoais.
+### Bases de referência
 
-### Base de marcas e modelos
+- **Municípios:** cópia local de [kelvins/municipios-brasileiros](https://github.com/kelvins/municipios-brasileiros), com código IBGE, nome, UF e estado. A licença está em `data/municipios-brasileiros-LICENSE`.
+- **Marcas e modelos:** recorte de [gpupo/brazilian-cars](https://github.com/gpupo/brazilian-cars), distribuído sob licença MIT. É uma referência para sugestões e não restringe texto livre no formulário. A licença está em `data/brazilian-cars-LICENSE`.
+- **Fotos de veículos:** imagens de referência do [Wikimedia Commons](https://commons.wikimedia.org/); créditos, fontes e licenças estão em `data/VEHICLE-IMAGE-CREDITS.md` e `data/vehicle-photos.json`.
+- **Banner:** fotografia do [Unsplash](https://images.unsplash.com/photo-1492144534655-ae79c964c9d7), sob a [licença Unsplash](https://unsplash.com/license).
 
-As sugestões do formulário de frota usam um recorte de marcas e modelos de [gpupo/brazilian-cars](https://github.com/gpupo/brazilian-cars), distribuído sob licença MIT. A base foi convertida de YAML para JSON e contém 89 marcas e 5.619 modelos distintos. É uma referência histórica e pode não refletir os modelos atualmente comercializados; as sugestões não restringem o cadastro. A atribuição e o texto da licença estão em `data/brazilian-cars-LICENSE`.
+## Validação
 
-### Base de municípios
+O projeto não possui uma suíte automatizada de testes configurada. É possível verificar a sintaxe dos módulos com:
 
-Os seletores de estado e município usam uma cópia local dos dados de [kelvins/municipios-brasileiros](https://github.com/kelvins/municipios-brasileiros), com código IBGE, nome do município, UF e nome do estado. O arquivo `data/municipalities.json` contém 5.571 registros normalizados a partir dos arquivos JSON do repositório, e a licença MIT está em `data/municipios-brasileiros-LICENSE`. A cópia local mantém o site utilizável sem conexão ao GitHub.
+```bash
+node --check app.js
+node --check api.js
+```
 
-As fotos dos veículos foram selecionadas no [Wikimedia Commons](https://commons.wikimedia.org/) e otimizadas para uso local. Créditos, fontes e licenças estão em [`data/VEHICLE-IMAGE-CREDITS.md`](data/VEHICLE-IMAGE-CREDITS.md) e `data/vehicle-photos.json`. A foto do Nissan Kicks não foi substituída por outra geração nem por um carro diferente.
+Para validar os fluxos, inicie o sistema e confira manualmente o catálogo, o cadastro, a seleção de veículo, o envio e acompanhamento de pedidos e o painel de análise usando as contas de demonstração.
 
-A foto escura do banner inicial foi obtida no [Unsplash](https://images.unsplash.com/photo-1492144534655-ae79c964c9d7) e é usada sob a [licença Unsplash](https://unsplash.com/license).
+## Referências e limitações
 
-> **Nota acadêmica:** as credenciais ficam no `db.json` e a autorização é feita no navegador para fins de demonstração. Não use esta autenticação ou esta API sem proteção em produção.
+- A implementação foi orientada pelos requisitos do Laboratório 02 e pelos PDFs na pasta `Aluguel de Carros (wireframe)/`.
+- Fotos dos veículos são ilustrativas; ano, versão, motorização ou mercado podem diferir do veículo anunciado. O Nissan Kicks está sem foto para evitar exibir outra geração como se fosse a cadastrada.
+- Bootstrap, Google Fonts e a foto do banner dependem de conexão à internet. As fotos locais do catálogo não dependem de serviços externos.
+- JSON Server, senhas em texto simples e autorização no navegador são usados somente para fins didáticos. O projeto não oferece segurança adequada para produção, pagamentos ou dados pessoais reais.
+- Não há endereço de deploy público configurado; execute a aplicação localmente conforme as instruções acima.
+
+## Licença
+
+Este projeto não declara uma licença de distribuição. Consulte os responsáveis pelo trabalho antes de reutilizar ou redistribuir o código. As licenças de imagens e bases de terceiros são indicadas separadamente nas referências acima.
